@@ -1,0 +1,194 @@
+box-shadow:0 12px 28px rgba(13,27,52,.08);transition:.2s}
+.world:hover .orb{transform:scale(1.1)}
+.world b{display:block;margin-top:7px;font-size:12px}.world small{font-size:10px;color:var(--muted)}
+.w1{left:4%;top:44%}.w2{left:16%;top:21%}.w3{left:29%;top:55%}.w4{left:42%;top:27%}.w5{left:55%;top:57%}.w6{left:68%;top:23%}.w7{left:80%;top:48%}.w8{right:1%;top:15%}
+.fog{border-style:dashed!important;background:linear-gradient(135deg,#fff,#FFF4F9)!important}
+
+/* BOSS */
+.boss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.boss{min-height:290px;cursor:pointer;position:relative}
+.monster{font-size:56px}.boss h3{font-size:22px;margin:8px 0}
+.hp{height:9px;border-radius:999px;background:#f1edf0;overflow:hidden;margin:10px 0 14px}
+.hp span{display:block;height:100%;background:linear-gradient(90deg,#FF8DBD,var(--pink))}
+.boss p{font-size:13px;line-height:1.7;color:var(--muted)}.weak{font-size:12px;font-weight:900;color:var(--berry)}
+.boss:after{content:"⚔️ 挑战怪兽";position:absolute;right:16px;bottom:14px;font-size:11px;color:var(--pink);font-weight:900}
+
+/* SPELL WORKSHOP */
+.create{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px}
+.inventory,.forge{border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+.inventory{background:#fff;border:1px solid var(--line)}
+.items{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.item{border:1px solid var(--line);border-radius:14px;padding:13px;text-align:center;background:#fbfdff;cursor:pointer}
+.item.active{border-color:var(--pink);background:var(--pale);color:var(--berry)}
+.item .ico{font-size:27px}
+.forge{color:#fff;background:radial-gradient(circle at 30% 20%,rgba(255,64,145,.18),transparent 25%),linear-gradient(145deg,var(--night),#17243D)}
+.cauldron{min-height:230px;border-radius:20px;border:1px dashed rgba(255,255,255,.28);display:grid;place-items:center;text-align:center;background:rgba(255,255,255,.05);position:relative;overflow:hidden}
+.bubble{position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(255,64,145,.42);animation:bub 2.8s infinite ease-in}
+@keyframes bub{0%{bottom:-20px;opacity:0}20%{opacity:1}100%{bottom:110%;opacity:0}}
+.make{margin-top:14px;border:0;border-radius:12px;padding:12px 16px;background:#fff;color:var(--dark);font-weight:900}
+.forge-result{margin-top:14px;color:#FFD1E4;font-weight:900}
+
+/* STORY BOOK */
+.story-book{width:min(840px,100%);margin:auto;border-radius:28px;overflow:hidden;box-shadow:0 34px 80px rgba(10,39,88,.25);
+background:linear-gradient(145deg,var(--dark),#241833);color:#fff}
+.cover,.page{min-height:450px;padding:48px}
+.cover{display:grid;place-items:center;text-align:center}
+.cover h3{font-size:46px;margin:14px 0}.cover p{color:#F1D6E2}
+.page{display:none;background:linear-gradient(145deg,#FFFFFF,#FFF7FA);color:var(--ink)}
+.page.active{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px}
+.art{border-radius:18px;background:radial-gradient(circle at 50% 40%,rgba(255,64,145,.16),transparent 30%),linear-gradient(145deg,#FFF7FA,#F8EEF3);display:grid;place-items:center;font-size:82px}
+.page small{font-weight:900;color:var(--pink)}.page h3{font-size:38px;margin:16px 0}.page p{font-size:17px;line-height:1.85;color:var(--muted)}
+.controls{display:flex;justify-content:space-between;margin-top:28px}.controls button{border:0;border-radius:10px;padding:10px 14px;background:var(--pale);color:var(--berry)}
+
+/* AGENT */
+.agent{margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.agenttop{display:flex;gap:10px;align-items:center}
+.ai{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--pink),var(--berry));display:grid;place-items:center;color:#fff;font-weight:900}
+.agentbox{display:grid;grid-template-columns:1fr auto;gap:10px;border:1px solid var(--line);border-radius:14px;padding:9px;margin-top:12px}
+.agentbox textarea{border:0;outline:0;resize:none;background:transparent;min-height:70px}
+.answer{display:none;margin-top:12px;padding:14px;border-radius:14px;background:var(--pale);border:1px solid #F0D5E1;color:var(--berry);line-height:1.75}.answer.show{display:block}
+
+/* END */
+.end{padding:120px 0;text-align:center;color:#fff;background:radial-gradient(circle at 50% 12%,rgba(255,64,145,.20),transparent 32%),linear-gradient(180deg,var(--dark),#17243D)}
+.end h2{font-size:52px;margin:8px 0 14px}.end p{color:#E9D7E0;line-height:1.9}
+.end-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+.end-actions a,.end-actions button{padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(13,27,52,.58);backdrop-filter:blur(7px);z-index:200;padding:28px}.modal.show{display:grid;place-items:center}
+.modalbox{width:min(760px,100%);max-height:86vh;overflow:auto;background:#fff;border-radius:22px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+.modalhead{display:flex;justify-content:space-between;align-items:center;gap:20px}.close{width:38px;height:38px;border:0;border-radius:10px;background:var(--pale);font-size:20px}
+.modalbody{line-height:1.8;color:var(--muted)}
+
+footer{background:var(--dark);color:#F3EAF0;padding:30px 0}.footerin{display:flex;justify-content:space-between;gap:20px}footer small{color:#B8C0CE}
+
+@media(max-width:980px){
+.hero-inner{grid-template-columns:1fr}.magic-grid{grid-template-columns:repeat(2,1fr)}.boss-grid{grid-template-columns:1fr 1fr}.create{grid-template-columns:1fr}.page.active{grid-template-columns:1fr}.links a:nth-child(n+5){display:none}
+}
+@media(max-width:680px){
+.hero h1{font-size:46px}.magic-orb{width:330px;height:330px}.magic-grid,.boss-grid{grid-template-columns:1fr}.head{display:block}.links a{display:none}.items{grid-template-columns:1fr}.map{min-height:760px}.world{position:relative!important;left:auto!important;right:auto!important;top:auto!important;margin:18px auto}.path{display:none}.end h2{font-size:38px}
+}
+
+/* Portfolio palette final overrides */
+.soft{background:#FFFFFF;border-color:var(--line)}
+.card,.inventory,.agent,.modalbox{background:#FFFFFF}
+.magic-card:after,.boss:after{color:var(--pink)}
+.world:hover .orb{border-color:var(--pink)}
+.story-book .kicker,.end .kicker{color:#FFD1E4}
+.cover .btn.ghost{color:#fff;border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.08)}
+
+
+/* ===== Contrast Fix v2 ===== */
+
+/* 1. 魔法熔炉按钮：白底在深色熔炉里不够有魔法感，改成主色高对比按钮 */
+.forge .make{
+  min-width:180px;
+  min-height:52px;
+  padding:14px 24px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;
+  background:linear-gradient(135deg,#FF4091,#8F235C);
+  color:#FFFFFF !important;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:.03em;
+  box-shadow:0 12px 30px rgba(255,64,145,.30),0 0 0 1px rgba(255,255,255,.06) inset;
+  transition:.2s ease;
+}
+.forge .make:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 36px rgba(255,64,145,.38),0 0 0 1px rgba(255,255,255,.10) inset;
+}
+.forge .make:active{transform:translateY(0) scale(.98)}
+.forge-result{
+  color:#FFD6E7 !important;
+  text-shadow:0 1px 10px rgba(255,64,145,.12);
+}
+
+/* 2. 尾声区域：之前深色区域被全局浅色覆盖，强制恢复午夜深蓝背景与高对比文字 */
+.end{
+  position:relative;
+  isolation:isolate;
+  color:#FFFFFF !important;
+  background:
+    radial-gradient(circle at 50% 18%,rgba(255,64,145,.22),transparent 31%),
+    radial-gradient(circle at 78% 64%,rgba(143,35,92,.18),transparent 24%),
+    linear-gradient(180deg,#0D1B34 0%,#13233F 100%) !important;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.end .wrap{position:relative;z-index:2}
+.end .kicker{
+  color:#FF8DBD !important;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.end h2{
+  color:#FFFFFF !important;
+  text-shadow:0 4px 24px rgba(0,0,0,.18);
+}
+.end p{
+  color:#E8DDE4 !important;
+  font-weight:500;
+}
+.end-actions a,
+.end-actions button{
+  min-width:170px;
+  padding:13px 20px;
+  border-radius:13px;
+  font-weight:900;
+  color:#FFFFFF !important;
+  transition:.2s ease;
+}
+.end-actions a{
+  background:linear-gradient(135deg,#FF4091,#8F235C) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  box-shadow:0 12px 28px rgba(255,64,145,.25);
+}
+.end-actions button{
+  background:#FFFFFF !important;
+  color:#0D1B34 !important;
+  border:1px solid rgba(255,255,255,.9) !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+.end-actions a:hover,.end-actions button:hover{transform:translateY(-2px)}
+
+/* Footer remains clearly separated from the epilogue */
+footer{
+  background:#09162C !important;
+  color:#FFFFFF !important;
+  border-top:1px solid rgba(255,255,255,.10);
+}
+footer b{color:#FFFFFF !important}
+footer small{color:#BFC9D8 !important}
+
+
+/* ===== Spellbook contrast fix ===== */
+.story-book .cover{
+  background:
+    radial-gradient(circle at 50% 28%,rgba(255,64,145,.13),transparent 32%),
+    linear-gradient(180deg,#FFF8FB 0%,#FFFFFF 100%) !important;
+  color:#0D1B34 !important;
+}
+.story-book .cover .kicker{
+  color:#C72E72 !important;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.story-book .cover h2{
+  color:#0D1B34 !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+}
+.story-book .cover p{
+  color:#8F235C !important;
+  opacity:1 !important;
+  font-weight:700;
+}
+.story-book .cover .btn,
+.story-book #openBook{
+  background:linear-gradient(135deg,#FF4091,#8F235C) !important;
+  color:#FFFFFF !important;
+  border-color:transparent !important;
+  box-shadow:0 12px 30px rgba(255,64,145,.24);
+}
+.story-book .page,
