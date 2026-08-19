@@ -1,0 +1,27 @@
+name: Deploy latest Product Magic
+
+on:
+  push:
+    paths:
+      - '.github/workflows/deploy-latest.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble latest index
+        run: |
+          cat .deploy/part01 .deploy/part02 .deploy/part03 .deploy/part04 .deploy/part05 .deploy/part06 .deploy/part07 > index.html
+      - name: Commit latest site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Deploy latest Product Magic site"
+            git push
+          fi
