@@ -1,0 +1,261 @@
+#complexityOrbit .r9 {left:43% !important; bottom:-6% !important;}   /* 技术 */
+#complexityOrbit .r10{right:18% !important; bottom:-1% !important;}  /* 成本 */
+
+/* 轻微错落，避免机械等距，但整体仍保持均衡 */
+#complexityOrbit .r1{transform:rotate(-2deg) !important}
+#complexityOrbit .r2{transform:rotate(-5deg) !important}
+#complexityOrbit .r3{transform:rotate(5deg) !important}
+#complexityOrbit .r4{transform:rotate(-4deg) !important}
+#complexityOrbit .r5{transform:rotate(4deg) !important}
+#complexityOrbit .r6{transform:rotate(-3deg) !important}
+#complexityOrbit .r7{transform:rotate(3deg) !important}
+#complexityOrbit .r8{transform:rotate(-2deg) !important}
+#complexityOrbit .r9{transform:rotate(1deg) !important}
+#complexityOrbit .r10{transform:rotate(2deg) !important}
+
+/* 点击聚拢时覆盖上面的静态旋转，确保仍然全部吸入中心 */
+.magic-orb.collapsed #complexityOrbit .rune{
+  transform:
+    translate(var(--collapse-x,0px),var(--collapse-y,0px))
+    scale(.12) !important;
+}
+
+@media(max-width:980px){
+  #complexityOrbit{
+    width:610px !important;
+    height:540px !important;
+  }
+}
+@media(max-width:680px){
+  #complexityOrbit{
+    width:410px !important;
+    height:410px !important;
+  }
+  #complexityOrbit .r1 {left:34% !important; top:-1% !important;}
+  #complexityOrbit .r2 {left:3% !important; top:12% !important;}
+  #complexityOrbit .r3 {right:3% !important; top:12% !important;}
+  #complexityOrbit .r4 {left:-3% !important; top:39% !important;}
+  #complexityOrbit .r5 {right:-3% !important; top:39% !important;}
+  #complexityOrbit .r6 {left:2% !important; bottom:14% !important;}
+  #complexityOrbit .r7 {right:2% !important; bottom:14% !important;}
+  #complexityOrbit .r8 {left:17% !important; bottom:0% !important;}
+  #complexityOrbit .r9 {left:42% !important; bottom:-4% !important;}
+  #complexityOrbit .r10{right:15% !important; bottom:0% !important;}
+}
+
+
+/* =========================================================
+   FINAL ORBIT DISTRIBUTION FIX
+   10 个胶囊围绕圆环完整均衡分布，避免左侧扎堆
+   ========================================================= */
+
+/* 标签轨道围绕中心魔法球，整体保持居中 */
+#complexityOrbit{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:650px !important;
+  height:560px !important;
+  transform:translate(-50%,-50%) !important;
+  overflow:visible !important;
+  pointer-events:none !important;
+  animation:none !important;
+  background:transparent !important;
+  border:0 !important;
+}
+
+/* 统一胶囊本体，消除旧规则带来的偏移 */
+#complexityOrbit .rune{
+  position:absolute !important;
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:auto !important;
+
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:9px !important;
+
+  width:max-content !important;
+  min-width:92px !important;
+  height:44px !important;
+  min-height:44px !important;
+  padding:0 16px !important;
+  margin:0 !important;
+
+  border-radius:999px !important;
+  background:rgba(255,255,255,.97) !important;
+  border:1px solid rgba(255,64,145,.13) !important;
+  box-shadow:
+    0 10px 26px rgba(13,27,52,.07),
+    0 0 22px rgba(255,64,145,.10) !important;
+
+  color:#32465F !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+
+  opacity:1 !important;
+  filter:none !important;
+  translate:0 0 !important;
+  scale:1 !important;
+  rotate:0deg !important;
+  animation:orbitFloat 5s ease-in-out infinite !important;
+  transform:translate(-50%,-50%) !important;
+}
+
+/* 图标保持热粉 */
+#complexityOrbit .rune-icon{
+  color:#FF4091 !important;
+  font-size:17px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  min-width:18px !important;
+  text-align:center !important;
+}
+
+/*
+  真实“圆环式”分布：
+  上 → 右上 → 右 → 右下 → 下右 → 下 → 下左 → 左 → 左上
+  让左右数量视觉上均衡。
+*/
+#complexityOrbit .r1 {left:50% !important; top:4%  !important; animation-delay:.0s !important;}  /* 需求 */
+#complexityOrbit .r3 {left:78% !important; top:15% !important; animation-delay:.5s !important;}  /* 商业 */
+#complexityOrbit .r5 {left:92% !important; top:38% !important; animation-delay:1.0s !important;}  /* AI */
+#complexityOrbit .r7 {left:88% !important; top:66% !important; animation-delay:1.5s !important;}  /* 组织 */
+#complexityOrbit .r10{left:70% !important; top:86% !important; animation-delay:2.0s !important;}  /* 成本 */
+#complexityOrbit .r9 {left:50% !important; top:95% !important; animation-delay:2.5s !important;}  /* 技术 */
+#complexityOrbit .r8 {left:30% !important; top:86% !important; animation-delay:3.0s !important;}  /* 平台 */
+#complexityOrbit .r6 {left:12% !important; top:66% !important; animation-delay:3.5s !important;}  /* 流程 */
+#complexityOrbit .r4 {left:8%  !important; top:38% !important; animation-delay:4.0s !important;}  /* Agent */
+#complexityOrbit .r2 {left:22% !important; top:15% !important; animation-delay:4.5s !important;}  /* 数据 */
+
+@keyframes orbitFloat{
+  0%,100%{margin-top:0}
+  50%{margin-top:-6px}
+}
+
+/* 点击后，所有胶囊仍然吸入圆心 */
+.magic-orb.collapsed #complexityOrbit .rune{
+  animation:none !important;
+  margin-top:0 !important;
+  opacity:0 !important;
+  filter:blur(3px) !important;
+  transform:
+    translate(var(--collapse-x,0px),var(--collapse-y,0px))
+    scale(.12) !important;
+}
+
+/* 让右侧轨道不被裁掉 */
+.hero,
+.hero-inner,
+.magic-orb{
+  overflow:visible !important;
+}
+
+/* 平板 */
+@media(max-width:980px){
+  #complexityOrbit{
+    width:560px !important;
+    height:500px !important;
+  }
+  #complexityOrbit .rune{
+    min-width:82px !important;
+    height:40px !important;
+    min-height:40px !important;
+    padding:0 13px !important;
+    font-size:12px !important;
+  }
+}
+
+/* 手机 */
+@media(max-width:680px){
+  #complexityOrbit{
+    width:400px !important;
+    height:390px !important;
+  }
+  #complexityOrbit .rune{
+    min-width:68px !important;
+    height:32px !important;
+    min-height:32px !important;
+    padding:0 9px !important;
+    gap:5px !important;
+    font-size:10px !important;
+  }
+  #complexityOrbit .rune-icon{
+    font-size:13px !important;
+    min-width:13px !important;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="cursor-spell" id="cursorSpell"></div>
+
+<header class="nav">
+  <div class="wrap navin">
+    <a class="brand" href="#home"><div class="brandmark" aria-label="产品魔法冒险">
+      <span class="logo-star logo-star-tall">✦</span>
+      <span class="logo-star logo-star-elegant">✧</span>
+      <span class="logo-star logo-star-fat">✦</span>
+    </div><div>产品魔法冒险<small>PRODUCT MAGIC ADVENTURE</small></div></a>
+    <nav class="links">
+      <a href="#home">魔法之门</a><a href="#magic">魔法图鉴</a><a href="#map">冒险地图</a><a href="#boss">怪兽挑战</a><a href="#create">创造</a><a href="#book">魔法书</a>
+      <button id="askTop">🪄 召唤魔法师</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <canvas id="particles"></canvas>
+  <div class="wrap hero-inner">
+    <div>
+      <div class="kicker">PROLOGUE · 魔法之门</div>
+      <h1>世间魔法无处不在。</h1>
+      <p>有的魔法能看见本质，有的能让复杂消失，有的能连接孤岛，有的能把一次成功放大成整个世界。</p>
+      <div class="hero-actions">
+        <button class="btn" id="startAdventure">✨ 开始冒险</button>
+        <button class="btn ghost" id="castAnywhere">🪄 在这里施法</button>
+      </div>
+    </div>
+    <div class="magic-orb">
+      <div class="orbit" id="complexityOrbit" aria-label="复杂问题标签">
+        <div class="rune r1"><span class="rune-icon">◎</span><span>需求</span></div>
+        <div class="rune r2"><span class="rune-icon">▤</span><span>数据</span></div>
+        <div class="rune r3"><span class="rune-icon">▥</span><span>商业</span></div>
+        <div class="rune r4"><span class="rune-icon">✦</span><span>Agent</span></div>
+        <div class="rune r5"><span class="rune-icon">◉</span><span>AI</span></div>
+        <div class="rune r6"><span class="rune-icon">⌘</span><span>流程</span></div>
+        <div class="rune r7"><span class="rune-icon">♙</span><span>组织</span></div>
+        <div class="rune r8"><span class="rune-icon">▱</span><span>平台</span></div>
+        <div class="rune r9"><span class="rune-icon">&lt;/&gt;</span><span>技术</span></div>
+        <div class="rune r10"><span class="rune-icon">◉</span><span>成本</span></div>
+      </div>
+      <button class="orb-core" id="orbCore"><span class="core-default">点一下</span><span class="core-collapsed">万物皆有魔法</span></button>
+    </div>
+  </div>
+</section>
+
+<div class="wrap questbar">
+  <div class="quest">
+    <div class="quest-icon">📜</div>
+    <div><h3>主线任务：找到属于你的那一道魔法</h3><p>学习魔法 → 打开地图 → 挑战怪兽 → 收集材料 → 创造新魔法。</p></div>
+    <div class="reward">+100 Magic XP</div>
+  </div>
+</div>
+
+<section class="section" id="magic">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="chapter">CHAPTER 01 · 魔法图鉴</div><h2>每一种产品能力，<br>都藏着一种魔法。</h2></div>
+      <p>能力被看见、组合、调用、放大，魔法就会发生。图鉴会随着每一次冒险继续生长。</p>
+    </div>
+    <div class="magic-grid">
+      <div class="card magic-card" data-magic="eye"><div class="ico">👁</div><small>MAGIC 001</small><h3>洞察之眼</h3><p>看见真正的问题。</p></div>
+      <div class="card magic-card" data-magic="mirror"><div class="ico">🔮</div><small>MAGIC 002</small><h3>本质之镜</h3><p>把需求照出真正的目标。</p></div>
+      <div class="card magic-card" data-magic="vanish"><div class="ico">✨</div><small>MAGIC 003</small><h3>消失咒</h3><p>让多余复杂度消失。</p></div>
+      <div class="card magic-card" data-magic="link"><div class="ico">∞</div><small>MAGIC 004</small><h3>连接术</h3><p>把散落能力连成一条路。</p></div>
+      <div class="card magic-card" data-magic="scale"><div class="ico">✦</div><small>MAGIC 005</small><h3>放大术</h3><p>把一次成功复制很多次。</p></div>
