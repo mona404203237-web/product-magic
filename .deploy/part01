@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品魔法冒险｜Product Magic Adventure</title>
+<style>
+:root{
+  --night:#0D1B34;--night2:#18263F;--blue:#FF4091;--cyan:#FF8DBD;--purple:#8F235C;
+  --gold:#FFBE3C;--ink:#0D1B34;--muted:#68768B;--line:#EBE6EC;--paper:#FAFAFC;
+  --pink:#FF4091;--berry:#8F235C;--pale:#FFF4F9;--shadow:0 24px 70px rgba(13,27,52,.12)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,"PingFang SC","Microsoft YaHei",Arial,sans-serif;color:var(--ink);
+background:linear-gradient(180deg,#FFFFFF,#FAFAFC);overflow-x:hidden}
+a{text-decoration:none;color:inherit}button,textarea{font:inherit}button{cursor:pointer}
+.wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.84);backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(219,231,245,.9)}
+.navin{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.brandmark{
+  width:58px;height:48px;position:relative;display:block;flex:0 0 58px;
+  color:var(--pink);background:transparent;box-shadow:none
+}
+.logo-star{
+  position:absolute;display:block;line-height:1;
+  text-shadow:0 5px 18px rgba(255,64,145,.20);
+  user-select:none
+}
+/* 主星：最高、最大，像魔法杖亮起的第一颗星 */
+.logo-star-tall{
+  left:2px;top:-3px;font-size:46px;font-weight:300;
+  transform:scaleX(.72) scaleY(1.18);
+  color:var(--pink)
+}
+/* 优美星：更纤细、轻盈，形成高低错落 */
+.logo-star-elegant{
+  left:31px;top:5px;font-size:28px;font-weight:300;
+  transform:rotate(12deg);
+  color:var(--berry)
+}
+/* 小胖星：短小饱满，作为收尾 */
+.logo-star-fat{
+  left:38px;top:29px;font-size:18px;font-weight:900;
+  transform:scaleX(1.18) scaleY(.88);
+  color:#FF79B1
+}
+.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:.08em}
+.links{display:flex;gap:3px;align-items:center}
+.links a,.links button{border:0;background:transparent;padding:9px 12px;border-radius:11px;color:#425b77}
+.links a:hover,.links button:hover{background:var(--pale);color:var(--pink)}
+
+/* HERO */
+.hero{min-height:860px;position:relative;color:var(--ink);overflow:hidden;
+background:
+radial-gradient(circle at 74% 26%,rgba(255,64,145,.08),transparent 26%),
+radial-gradient(circle at 18% 20%,rgba(143,35,92,.05),transparent 28%),
+linear-gradient(180deg,#FFFFFF,#FAFAFC)}
+#particles{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.hero-inner{min-height:860px;display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;position:relative;z-index:2}
+.kicker{font-size:12px;letter-spacing:.18em;font-weight:900;color:var(--pink)}
+.hero h1{font-size:68px;line-height:1.04;margin:14px 0 16px;letter-spacing:-.04em}
+.hero h1 span{color:var(--pink);text-shadow:0 0 25px rgba(255,64,145,.18)}
+.hero p{font-size:18px;line-height:1.85;color:var(--muted);margin:0}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{border:0;border-radius:13px;padding:12px 17px;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--berry));
+color:#fff;box-shadow:0 12px 28px rgba(255,64,145,.22)}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink);box-shadow:none}
+.magic-orb{
+  width:410px;height:410px;border-radius:50%;margin:auto;position:relative;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 50%,rgba(255,255,255,1) 0 2%,rgba(255,64,145,.34) 14%,rgba(143,35,92,.18) 38%,rgba(255,255,255,.08) 62%);
+  box-shadow:0 0 100px rgba(255,64,145,.22),inset 0 0 90px rgba(255,255,255,.45)
+}
+.magic-orb:before,.magic-orb:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,64,145,.22)}
+.magic-orb:before{inset:42px}.magic-orb:after{inset:82px}
+.orbit{position:absolute;inset:0;animation:spin 24s linear infinite;transform-origin:50% 50%}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rune{
+  position:absolute;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.94);
+  border:1px solid var(--line);box-shadow:0 9px 25px rgba(13,27,52,.08);
+  font-size:12px;font-weight:800;color:var(--berry);backdrop-filter:blur(8px);
+  transition:
+    transform .88s cubic-bezier(.18,.9,.22,1),
+    opacity .58s ease,
+    filter .58s ease,
+    background .35s ease,
+    border-color .35s ease;
+  will-change:transform,opacity
+}
+/* 不规则分布，让首屏先呈现“复杂” */
+.r1{left:-2px;top:68px}.r2{right:8px;top:72px}.r3{left:20px;bottom:78px}.r4{right:18px;bottom:72px}
+.r5{left:158px;top:-14px}.r6{left:158px;bottom:-12px}.r7{left:-26px;top:190px}.r8{right:-28px;top:198px}
+.r9{left:72px;top:18px}.r10{right:65px;bottom:18px}.r11{right:72px;top:22px}.r12{left:62px;bottom:18px}
+
+/* 点击施法后：所有复杂标签向中心收拢 */
+.magic-orb.collapsed .orbit{animation-play-state:paused}
+.magic-orb.collapsed .rune{
+  transform:translate(var(--collapse-x,0px),var(--collapse-y,0px)) scale(.18) rotate(-10deg) !important;
+  opacity:0;
+  filter:blur(3px);
+  background:var(--pale);
+  border-color:rgba(255,64,145,.18)
+}
+.magic-orb.collapsed:before{inset:102px;border-color:rgba(255,64,145,.34)}
+.magic-orb.collapsed:after{inset:126px;border-color:rgba(143,35,92,.25)}
+.magic-orb:before,.magic-orb:after{transition:inset .8s cubic-bezier(.18,.9,.22,1),border-color .6s ease}
+.orb-result{
+  position:absolute;left:50%;top:76%;transform:translate(-50%,14px);
+  z-index:4;opacity:0;pointer-events:none;white-space:nowrap;
+  color:var(--berry);font-size:12px;font-weight:900;letter-spacing:.06em;
+  transition:opacity .45s ease .28s,transform .55s ease .28s
+}
+.magic-orb.collapsed .orb-result{opacity:1;transform:translate(-50%,0)}
+.orb-core{
+  width:145px;height:145px;border-radius:50%;border:0;color:#fff;font-weight:900;z-index:5;
+  background:linear-gradient(135deg,var(--pink),var(--berry));
+  box-shadow:0 0 0 16px rgba(255,64,145,.06),0 0 45px rgba(255,64,145,.28);
+  transition:transform .35s ease,box-shadow .55s ease,background .55s ease
+}
+.orb-core:hover{transform:scale(1.04)}
+.core-collapsed{display:none}
+.magic-orb.collapsed .orb-core{
+  transform:scale(1.14);
+  background:linear-gradient(135deg,#FF4091,#A41F62);
+  box-shadow:0 0 0 28px rgba(255,64,145,.07),0 0 70px rgba(255,64,145,.34)
+}
+.magic-orb.collapsed .core-default{display:none}
+.magic-orb.collapsed .core-collapsed{display:inline}
+.cursor-spell{
+  position:fixed;left:0;top:0;width:18px;height:18px;border-radius:50%;pointer-events:none;z-index:9999;
+  background:radial-gradient(circle,#fff 0 22%,rgba(255,64,145,.95) 28%,rgba(255,64,145,.05) 70%);
+  box-shadow:0 0 18px rgba(255,64,145,.78);transform:translate(-50%,-50%)
+}
+.trail{position:fixed;width:7px;height:7px;border-radius:50%;pointer-events:none;z-index:9998;
+background:rgba(255,64,145,.72);box-shadow:0 0 10px rgba(255,64,145,.55);animation:fadeTrail .7s forwards}
+@keyframes fadeTrail{to{opacity:0;transform:scale(.1)}}
+
+/* QUEST */
+.questbar{margin-top:-42px;position:relative;z-index:4}
+.quest{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;
+align-items:center;box-shadow:var(--shadow)}
+.quest-icon{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,#FFF4F9,#F8EDF3);display:grid;place-items:center;font-size:27px}
+.quest h3{margin:0 0 4px}.quest p{margin:0;font-size:13px;color:var(--muted)}
+.reward{padding:8px 10px;border-radius:999px;background:#FFF0F6;color:var(--berry);font-size:12px;font-weight:900}
+
+/* GENERIC */
+.section{padding:92px 0}
+.soft{background:rgba(255,255,255,.76);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:30px}
+.head h2{font-size:40px;margin:7px 0 0}
+.head p{max-width:650px;color:var(--muted);line-height:1.8;margin:0}
+.chapter{font-size:12px;letter-spacing:.14em;font-weight:900;color:var(--pink)}
+.card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:20px;box-shadow:var(--shadow);transition:.22s}
+.card:hover{transform:translateY(-4px)}
+
+/* MAGIC LIBRARY */
+.magic-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.magic-card{min-height:215px;cursor:pointer;position:relative;overflow:hidden}
+.magic-card .ico{font-size:36px}
+.magic-card small{color:var(--pink);font-weight:900}
+.magic-card h3{margin:8px 0}
+.magic-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.magic-card:after{content:"学习魔法 →";position:absolute;right:15px;bottom:13px;color:var(--pink);font-size:11px;font-weight:900}
+
+/* MAP */
+.map-shell{border-radius:28px;padding:30px;background:linear-gradient(#fff,#FAFAFC);border:1px solid var(--line);box-shadow:var(--shadow)}
+.map{min-height:500px;position:relative;border-radius:22px;overflow:hidden;
+background:
+linear-gradient(rgba(72,145,221,.07) 1px,transparent 1px),
+linear-gradient(90deg,rgba(72,145,221,.07) 1px,transparent 1px),
+radial-gradient(circle at 50% 50%,#fbfdff,#eaf4ff);
+background-size:32px 32px,32px 32px,auto}
+.path{position:absolute;left:7%;right:7%;top:52%;height:7px;border-radius:999px;
+background:linear-gradient(90deg,#F3CFDF,var(--pink),var(--berry),#FF8DBD);box-shadow:0 0 20px rgba(255,64,145,.18)}
+.world{position:absolute;width:112px;text-align:center;cursor:pointer}
+.world .orb{width:72px;height:72px;border-radius:50%;margin:auto;display:grid;place-items:center;font-size:30px;background:#fff;border:3px solid #F0D5E1;
