@@ -1,0 +1,41 @@
+castAnywhere.onclick=e=>burst(e.clientX,e.clientY);startAdventure.onclick=()=>magic.scrollIntoView({behavior:'smooth'});
+
+/* magic cards */
+const md={
+eye:['洞察之眼','👁','看见真正的问题。','它能穿过功能、术语和表象，直接看见真正值得解决的那件事。'],
+mirror:['本质之镜','🔮','让需求照出真身。','镜子会暂时拿掉“怎么做”，只留下“为什么”和“要改变什么”。'],
+vanish:['消失咒','✨','把复杂留在幕后。','让重复步骤、多余入口和无效功能从用户眼前消失。'],
+link:['连接术','∞','让孤岛重新连起来。','用户、业务、AI、数据、设备、软件会被重新排成一条能真正跑通的路。'],
+scale:['放大术','✦','让一次成功不断复制。','项目变产品，产品变平台，平台变生态。'],
+route:['路由术','🧭','让问题自动找到能力。','用户不再寻找软件，问题会自动寻找模型、Workflow、算力与工具。'],
+summon:['Agent召唤术','🤖','召唤会行动的软件。','它拥有目标、工具、记忆与Workflow，不只回答，还会完成任务。'],
+platform:['平台封印术','🏰','把定制怪兽封进能力宝库。','每一次定制都会沉淀成可复用能力，不让复杂度无限生长。'],
+token:['价值计量术','🪙','让魔法可以被交易。','每一次模型、算力、Workflow与服务调用，都能被计量、计费和结算。'],
+trust:['可信护盾','🛡️','让每个结果都有来路。','数据、模型、参数、执行过程与验证结果都可以追溯。'],
+workflow:['流程编织术','🧩','把专家经验织成可复用咒语。','复杂专业流程被编织成Workflow，任何人都可以重复调用。'],
+world:['世界生成术','🌌','让产品长成生态。','当能力可以被第三方提供、组合和交易，一个新的世界就出现了。']
+};
+document.querySelectorAll('.magic-card').forEach(x=>x.onclick=()=>{const d=md[x.dataset.magic];pop('MAGIC ENCYCLOPEDIA',d[0],'<div style="font-size:52px">'+d[1]+'</div><h3>'+d[2]+'</h3><p>'+d[3]+'</p>')});
+
+/* map */
+const wd={sea:['信息之海','🌊','潮水一样的信息中，真正的魔法是让人找到自己需要的那一滴。'],kingdom:['数字王国','🏰','这里所有人都有流程和规则。魔法是让复杂组织也能沿着一条清楚的路前进。'],iot:['万物森林','🌲','机器、设备、传感器都会说话。魔法是让现实世界进入产品。'],city:['智慧之城','🏙️','系统像街道一样交错。魔法是让城市中的能力协同起来。'],industry:['工业大陆','⚙️','这里的魔法会影响真实机器，所以安全、可靠与物理规律也是魔法的一部分。'],mind:['智能之境','🧠','数据开始预测、判断和生成。魔法是让AI成为新的能力层。'],agent:['Agent新世界','🤖','软件获得任务、工具和行动。魔法开始从回答走向执行。'],unknown:['未知领域','?','地图在这里变成了雾。新的问题，会决定下一个世界的名字。']};
+document.querySelectorAll('.world').forEach(x=>x.onclick=()=>{const d=wd[x.dataset.world];pop('WORLD PORTAL',d[0],'<div style="font-size:52px">'+d[1]+'</div><p>'+d[2]+'</p>')});
+
+/* bosses */
+const bd={system:['系统怪兽','👾','能力抽象术发动！','系统、菜单、入口开始聚合，最后只剩：<b>任务 → 能力 → 结果</b>。怪兽缩成了一只会自动调用能力的小精灵。'],ai:['AI幻影兽','🤖','执行链召唤术发动！','Planning、Tools、Workflow、Action依次出现。<br><br><b>Answer → Plan → Action → Outcome</b>'],custom:['定制巨龙','🐉','平台封印术发动！','每一只龙头都被重新命名为可复用能力。<br><br><b>Project → Product → Platform → Scale</b>']};
+document.querySelectorAll('.boss').forEach(x=>x.onclick=()=>{const d=bd[x.dataset.boss];pop('BOSS BATTLE',d[0],'<div style="font-size:54px">'+d[1]+'</div><h3>'+d[2]+'</h3><p>'+d[3]+'</p>')});
+
+/* forge */
+const items=[...document.querySelectorAll('.item')];items.forEach(x=>x.onclick=()=>x.classList.toggle('active'));
+make.onclick=()=>{const a=items.filter(x=>x.classList.contains('active')).map(x=>x.dataset.item);if(a.length<2){forgeResult.textContent='魔力不足：至少选择两种材料。';return}let n='Unknown Product Spell';if(a.includes('AI Agent')&&a.includes('Knowledge')&&a.includes('Workflow'))n='Knowledge Copilot';else if(a.includes('IoT')&&a.includes('Data')&&a.includes('AI Agent'))n='Autonomous Operations Agent';else if(a.includes('Digital Twin')&&a.includes('IoT'))n='Living Digital Twin';else if(a.includes('GPU')&&a.includes('Workflow'))n='Compute Workflow Cloud';else if(a.includes('API')&&a.includes('AI Agent'))n='Capability Router Agent';forgeResult.textContent='✨ 新魔法诞生：'+n+' ｜ '+a.join(' + ')};
+
+/* book */
+const pages=[['PRODUCT MAGIC · 001','🔮','需求不是答案。','需求只是门上的字。真正的答案，藏在门后。'],['PRODUCT MAGIC · 002','✨','先减，再加。','复杂会自己长大，简单需要被施法。'],['PRODUCT MAGIC · 003','🏰','项目会结束，能力应该留下。','每一次冒险，都应该留下下一次可以使用的魔法。'],['PRODUCT MAGIC · 004','🧩','平台不是系统的集合。','平台，是能被重复召唤、组合和放大的能力。'],['PRODUCT MAGIC · 005','🤖','AI不是聊天框。','真正的AI，会理解、规划、调用、行动，并带回结果。'],['PRODUCT MAGIC · 006','🪄','好的产品，会让复杂消失。','用户得到的是简单，魔法师承担的是复杂。']];let pi=0;
+openBook.onclick=()=>{cover.style.display='none';page.classList.add('active')};function rp(){spellNo.textContent=pages[pi][0];art.textContent=pages[pi][1];spellTitle.textContent=pages[pi][2];spellText.textContent=pages[pi][3]}prev.onclick=()=>{pi=(pi-1+pages.length)%pages.length;rp()};next.onclick=()=>{pi=(pi+1)%pages.length;rp()};
+
+/* agent */
+function aq(){if(!question.value.trim())return;answer.innerHTML='<b>✨ 魔法阵已经亮起。</b><br><br>① 给怪兽起真正的名字；<br>② 让不重要的复杂度消失；<br>③ 重新连接需要的能力；<br>④ 只保留能改变结果的路径。<br><br><b>召唤公式：</b> Problem → Capability → Outcome';answer.classList.add('show')}
+ask.onclick=aq;question.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();aq()}});askTop.onclick=()=>agent.scrollIntoView({behavior:'smooth'});newQuest.onclick=()=>{agent.scrollIntoView({behavior:'smooth'});setTimeout(()=>question.focus(),500)};
+</script>
+</body>
+</html>
