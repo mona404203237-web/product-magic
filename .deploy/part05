@@ -1,3 +1,89 @@
+) !important;
+}
+
+/* 点击后吸入中心 */
+.magic-orb.collapsed #complexityOrbit .rune{
+  animation:none !important;
+  translate:0 0 !important;
+  transform:
+    translate(var(--collapse-x,0px),var(--collapse-y,0px))
+    scale(.12) !important;
+  opacity:0 !important;
+  filter:blur(3px) !important;
+}
+.magic-orb.collapsed .orb-core{
+  width:178px !important;
+  height:178px !important;
+}
+.core-collapsed{
+  display:none;
+  max-width:130px;
+  line-height:1.35;
+  text-align:center;
+  white-space:normal;
+}
+.magic-orb.collapsed .core-default{display:none !important}
+.magic-orb.collapsed .core-collapsed{display:inline !important}
+
+@media(max-width:980px){
+  .magic-orb{
+    width:300px !important;height:300px !important;
+    min-width:300px !important;min-height:300px !important;
+  }
+  #complexityOrbit{
+    width:580px !important;height:500px !important;
+  }
+  #complexityOrbit .rune{
+    min-width:86px !important;
+    height:42px !important;
+    padding:0 14px !important;
+    font-size:12px !important;
+  }
+}
+@media(max-width:680px){
+  .magic-orb{
+    width:250px !important;height:250px !important;
+    min-width:250px !important;min-height:250px !important;
+  }
+  #complexityOrbit{
+    width:390px !important;height:400px !important;
+  }
+  #complexityOrbit .rune{
+    min-width:72px !important;
+    height:34px !important;
+    padding:0 10px !important;
+    gap:6px !important;
+    font-size:10px !important;
+  }
+  #complexityOrbit .rune-icon{font-size:13px !important}
+}
+
+
+/* ===== Final balanced capsule distribution around the magic ring ===== */
+/* 仅调整 10 个胶囊标签的位置，保持现有热粉配色、尺寸、光环和交互不变 */
+#complexityOrbit{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:720px !important;
+  height:610px !important;
+  transform:translate(-50%,-50%) !important;
+  overflow:visible !important;
+  pointer-events:none !important;
+}
+
+/* 标签围绕圆环均衡分布：上2、右3、下2、左3 */
+#complexityOrbit .r1 {left:35% !important; top:-2% !important;}      /* 需求 */
+#complexityOrbit .r2 {left:7% !important;  top:12% !important;}      /* 数据 */
+#complexityOrbit .r3 {right:7% !important; top:12% !important;}      /* 商业 */
+
+#complexityOrbit .r4 {left:-1% !important; top:39% !important;}      /* Agent */
+#complexityOrbit .r5 {right:-1% !important; top:39% !important;}     /* AI */
+
+#complexityOrbit .r6 {left:5% !important;  bottom:13% !important;}   /* 流程 */
+#complexityOrbit .r7 {right:5% !important; bottom:13% !important;}   /* 组织 */
+
+#complexityOrbit .r8 {left:20% !important; bottom:-1% !important;}   /* 平台 */
 #complexityOrbit .r9 {left:43% !important; bottom:-6% !important;}   /* 技术 */
 #complexityOrbit .r10{right:18% !important; bottom:-1% !important;}  /* 成本 */
 
@@ -191,71 +277,24 @@
 }
 
 </style>
-</head>
-<body>
-<div class="cursor-spell" id="cursorSpell"></div>
 
-<header class="nav">
-  <div class="wrap navin">
-    <a class="brand" href="#home"><div class="brandmark" aria-label="产品魔法冒险">
-      <span class="logo-star logo-star-tall">✦</span>
-      <span class="logo-star logo-star-elegant">✧</span>
-      <span class="logo-star logo-star-fat">✦</span>
-    </div><div>产品魔法冒险<small>PRODUCT MAGIC ADVENTURE</small></div></a>
-    <nav class="links">
-      <a href="#home">魔法之门</a><a href="#magic">魔法图鉴</a><a href="#map">冒险地图</a><a href="#boss">怪兽挑战</a><a href="#create">创造</a><a href="#book">魔法书</a>
-      <button id="askTop">🪄 召唤魔法师</button>
-    </nav>
-  </div>
-</header>
+<style>
+/* ===== Quest block spacing fix =====
+   原版 .questbar 使用 margin-top:-42px，把任务板块向上拉，导致与上方魔法圆环/标签拥挤。
+   这里取消负边距，并增加明确的垂直留白。 */
+.questbar{
+  margin-top:48px !important;
+}
 
-<section class="hero" id="home">
-  <canvas id="particles"></canvas>
-  <div class="wrap hero-inner">
-    <div>
-      <div class="kicker">PROLOGUE · 魔法之门</div>
-      <h1>世间魔法无处不在。</h1>
-      <p>有的魔法能看见本质，有的能让复杂消失，有的能连接孤岛，有的能把一次成功放大成整个世界。</p>
-      <div class="hero-actions">
-        <button class="btn" id="startAdventure">✨ 开始冒险</button>
-        <button class="btn ghost" id="castAnywhere">🪄 在这里施法</button>
-      </div>
-    </div>
-    <div class="magic-orb">
-      <div class="orbit" id="complexityOrbit" aria-label="复杂问题标签">
-        <div class="rune r1"><span class="rune-icon">◎</span><span>需求</span></div>
-        <div class="rune r2"><span class="rune-icon">▤</span><span>数据</span></div>
-        <div class="rune r3"><span class="rune-icon">▥</span><span>商业</span></div>
-        <div class="rune r4"><span class="rune-icon">✦</span><span>Agent</span></div>
-        <div class="rune r5"><span class="rune-icon">◉</span><span>AI</span></div>
-        <div class="rune r6"><span class="rune-icon">⌘</span><span>流程</span></div>
-        <div class="rune r7"><span class="rune-icon">♙</span><span>组织</span></div>
-        <div class="rune r8"><span class="rune-icon">▱</span><span>平台</span></div>
-        <div class="rune r9"><span class="rune-icon">&lt;/&gt;</span><span>技术</span></div>
-        <div class="rune r10"><span class="rune-icon">◉</span><span>成本</span></div>
-      </div>
-      <button class="orb-core" id="orbCore"><span class="core-default">点一下</span><span class="core-collapsed">万物皆有魔法</span></button>
-    </div>
-  </div>
-</section>
+@media(max-width:980px){
+  .questbar{
+    margin-top:56px !important;
+  }
+}
 
-<div class="wrap questbar">
-  <div class="quest">
-    <div class="quest-icon">📜</div>
-    <div><h3>主线任务：找到属于你的那一道魔法</h3><p>学习魔法 → 打开地图 → 挑战怪兽 → 收集材料 → 创造新魔法。</p></div>
-    <div class="reward">+100 Magic XP</div>
-  </div>
-</div>
-
-<section class="section" id="magic">
-  <div class="wrap">
-    <div class="head">
-      <div><div class="chapter">CHAPTER 01 · 魔法图鉴</div><h2>每一种产品能力，<br>都藏着一种魔法。</h2></div>
-      <p>能力被看见、组合、调用、放大，魔法就会发生。图鉴会随着每一次冒险继续生长。</p>
-    </div>
-    <div class="magic-grid">
-      <div class="card magic-card" data-magic="eye"><div class="ico">👁</div><small>MAGIC 001</small><h3>洞察之眼</h3><p>看见真正的问题。</p></div>
-      <div class="card magic-card" data-magic="mirror"><div class="ico">🔮</div><small>MAGIC 002</small><h3>本质之镜</h3><p>把需求照出真正的目标。</p></div>
-      <div class="card magic-card" data-magic="vanish"><div class="ico">✨</div><small>MAGIC 003</small><h3>消失咒</h3><p>让多余复杂度消失。</p></div>
-      <div class="card magic-card" data-magic="link"><div class="ico">∞</div><small>MAGIC 004</small><h3>连接术</h3><p>把散落能力连成一条路。</p></div>
-      <div class="card magic-card" data-magic="scale"><div class="ico">✦</div><small>MAGIC 005</small><h3>放大术</h3><p>把一次成功复制很多次。</p></div>
+@media(max-width:680px){
+  .questbar{
+    margin-top:42px !important;
+  }
+}
+<
