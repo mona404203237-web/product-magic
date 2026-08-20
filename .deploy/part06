@@ -1,3 +1,104 @@
+/style>
+
+
+<style>
+/* ===== Hero 魔法背景向下延展 =====
+   保留上一版任务卡间距，同时让粒子/气泡背景覆盖圆环底部和技术标签之后的呼吸区。 */
+.hero{
+  padding-bottom:140px !important;
+}
+
+/* 任务卡保持与 Hero 分离，但不再制造背景断层 */
+.questbar{
+  margin-top:0 !important;
+  transform:translateY(-36px);
+}
+
+@media(max-width:980px){
+  .hero{padding-bottom:125px !important;}
+  .questbar{
+    margin-top:0 !important;
+    transform:translateY(-28px);
+  }
+}
+
+@media(max-width:680px){
+  .hero{padding-bottom:105px !important;}
+  .questbar{
+    margin-top:0 !important;
+    transform:translateY(-20px);
+  }
+}
+</style>
+
+</head>
+<body>
+<div class="cursor-spell" id="cursorSpell"></div>
+
+<header class="nav">
+  <div class="wrap navin">
+    <a class="brand" href="#home"><div class="brandmark" aria-label="产品魔法冒险">
+      <span class="logo-star logo-star-tall">✦</span>
+      <span class="logo-star logo-star-elegant">✧</span>
+      <span class="logo-star logo-star-fat">✦</span>
+    </div><div>产品魔法冒险<small>PRODUCT MAGIC ADVENTURE</small></div></a>
+    <nav class="links">
+      <a href="#home">魔法之门</a><a href="#magic">魔法图鉴</a><a href="#map">冒险地图</a><a href="#boss">怪兽挑战</a><a href="#create">创造</a><a href="#book">魔法书</a>
+      <button id="askTop">🪄 召唤魔法师</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <canvas id="particles"></canvas>
+  <div class="wrap hero-inner">
+    <div>
+      <div class="kicker">PROLOGUE · 魔法之门</div>
+      <h1>魔法赴世间万千奇遇</h1>
+      <p>凡有心之所向皆有魔法回响</p>
+      <div class="hero-actions">
+        <button class="btn" id="startAdventure">✨ 开始冒险</button>
+        <button class="btn ghost" id="castAnywhere">🪄 在这里施法</button>
+      </div>
+    </div>
+    <div class="magic-orb">
+      <div class="orbit" id="complexityOrbit" aria-label="复杂问题标签">
+        <div class="rune r1"><span class="rune-icon">◎</span><span>需求</span></div>
+        <div class="rune r2"><span class="rune-icon">▤</span><span>数据</span></div>
+        <div class="rune r3"><span class="rune-icon">▥</span><span>商业</span></div>
+        <div class="rune r4"><span class="rune-icon">✦</span><span>Agent</span></div>
+        <div class="rune r5"><span class="rune-icon">◉</span><span>AI</span></div>
+        <div class="rune r6"><span class="rune-icon">⌘</span><span>流程</span></div>
+        <div class="rune r7"><span class="rune-icon">♙</span><span>组织</span></div>
+        <div class="rune r8"><span class="rune-icon">▱</span><span>平台</span></div>
+        <div class="rune r9"><span class="rune-icon">&lt;/&gt;</span><span>技术</span></div>
+        <div class="rune r10"><span class="rune-icon">◉</span><span>成本</span></div>
+      </div>
+      <button class="orb-core" id="orbCore"><span class="core-default">点一下</span><span class="core-collapsed">万物皆有魔法</span></button>
+    </div>
+  </div>
+</section>
+
+<div class="wrap questbar">
+  <div class="quest">
+    <div class="quest-icon">📜</div>
+    <div><h3>找到属于你的那一道魔法</h3><p>学习魔法 → 打开地图 → 挑战怪兽 → 收集材料 → 创造新魔法。</p></div>
+    <div class="reward">+100 Magic XP</div>
+  </div>
+</div>
+
+<section class="section" id="magic">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="chapter">CHAPTER 01 · 魔法图鉴</div><h2>产品能力亦是魔力</h2></div>
+      <p>冒险沉淀魔法，图鉴收藏每一段传奇。</p>
+    </div>
+    <div class="magic-grid">
+      <div class="card magic-card" data-magic="eye"><div class="ico">👁</div><small>MAGIC 001</small><h3>洞察之眼</h3><p>看见真正的问题。</p></div>
+      <div class="card magic-card" data-magic="mirror"><div class="ico">🔮</div><small>MAGIC 002</small><h3>本质之镜</h3><p>把需求照出真正的目标。</p></div>
+      <div class="card magic-card" data-magic="vanish"><div class="ico">✨</div><small>MAGIC 003</small><h3>消失咒</h3><p>让多余复杂度消失。</p></div>
+      <div class="card magic-card" data-magic="link"><div class="ico">∞</div><small>MAGIC 004</small><h3>连接术</h3><p>把散落能力连成一条路。</p></div>
+      <div class="card magic-card" data-magic="scale"><div class="ico">✦</div><small>MAGIC 005</small><h3>放大术</h3><p>把一次成功复制很多次。</p></div>
       <div class="card magic-card" data-magic="route"><div class="ico">🧭</div><small>MAGIC 006</small><h3>路由术</h3><p>让问题自动找到能力。</p></div>
       <div class="card magic-card" data-magic="summon"><div class="ico">🤖</div><small>MAGIC 007</small><h3>Agent召唤术</h3><p>让软件开始自己行动。</p></div>
       <div class="card magic-card" data-magic="platform"><div class="ico">🏰</div><small>MAGIC 008</small><h3>平台封印术</h3><p>把定制怪兽封成可复用能力。</p></div>
@@ -12,8 +113,8 @@
 <section class="section soft" id="map">
   <div class="wrap">
     <div class="head">
-      <div><div class="chapter">CHAPTER 02 · 冒险地图</div><h2>地图会随着冒险不断长大。</h2></div>
-      <p>每个世界，都藏着新的魔法、怪兽与宝藏。点击世界，打开传送门。</p>
+      <div><div class="chapter">CHAPTER 02 · 冒险地图</div><h2>地图随冒险不断延展</h2></div>
+      <p>每一方天地，都藏着未知魔法、异兽与珍宝。点击世界，开启传送之门。</p>
     </div>
     <div class="map-shell">
       <div class="map">
@@ -34,8 +135,8 @@
 <section class="section" id="boss">
   <div class="wrap">
     <div class="head">
-      <div><div class="chapter">CHAPTER 03 · 怪兽挑战</div><h2>复杂，会长成各种怪兽。</h2></div>
-      <p>点击挑战。你会看到魔法不是装饰，而是一套把复杂变简单的力量。</p>
+      <div><div class="chapter">CHAPTER 03 · 怪兽挑战</div><h2>前路遍布蛰伏怪兽</h2></div>
+      <p>点击挑战。释放魔法力量，迎战重重困境。</p>
     </div>
     <div class="boss-grid">
       <div class="card boss" data-boss="system"><div class="monster">👾</div><h3>系统怪兽</h3><div class="hp"><span style="width:100%"></span></div><p>不停复制系统、入口与菜单。</p><div class="weak">弱点：能力抽象术</div></div>
@@ -48,7 +149,7 @@
 <section class="section soft" id="create">
   <div class="wrap">
     <div class="head">
-      <div><div class="chapter">CHAPTER 04 · 创造工坊</div><h2>收集魔法材料，创造不存在的东西。</h2></div>
+      <div><div class="chapter">CHAPTER 04 · 创造工坊</div><h2>收集魔法材料，创造崭新奇迹。</h2></div>
       <p>选材料，放进熔炉。不同组合会生成不同产品魔法。</p>
     </div>
     <div class="create">
@@ -81,77 +182,4 @@
 <section class="section" id="book">
   <div class="wrap">
     <div class="head">
-      <div><div class="chapter">CHAPTER 05 · 冒险魔法书</div><h2>每次冒险，都会留下新的咒语。</h2></div>
-      <p>这本书不会写完。新的问题，会继续长出新的页面。</p>
-    </div>
-    <div class="story-book">
-      <div class="cover" id="cover">
-        <div><div style="font-size:66px">📖</div><div class="kicker">THE PRODUCT SPELLBOOK</div><h3>产品魔法冒险录</h3><p>翻开第一页。</p><button class="btn ghost" id="openBook">翻开魔法书</button></div>
-      </div>
-      <div class="page" id="page">
-        <div class="art" id="art">🔮</div>
-        <div><small id="spellNo">PRODUCT MAGIC · 001</small><h3 id="spellTitle">需求不是答案。</h3><p id="spellText">需求只是门上的字。真正的答案，藏在门后。</p>
-        <div class="controls"><button id="prev">← 上一页</button><button id="next">下一页 →</button></div></div>
-      </div>
-    </div>
-
-    <div class="agent" id="agent">
-      <div class="agenttop"><div class="ai">AI</div><div><b>Product Magic Agent</b><div style="font-size:12px;color:var(--muted)">把你遇到的怪兽写下来。</div></div></div>
-      <div class="agentbox"><textarea id="question" placeholder="例如：我们的平台很多，但用户还是不知道怎么开始……"></textarea><button class="make" id="ask">施法 ✨</button></div>
-      <div class="answer" id="answer"></div>
-    </div>
-  </div>
-</section>
-
-<section class="end">
-  <div class="wrap"><div class="kicker">EPILOGUE · 下一张地图</div><h2>冒险没有终点。</h2><p>新的世界、新的怪兽、新的魔法，还在前面。<br>每一个还没有答案的问题，都是下一段故事的入口。</p>
-  <div class="end-actions"><a href="#home">✨ 回到魔法之门</a><button id="newQuest">📜 开启新任务</button></div></div>
-</section>
-
-<footer><div class="wrap footerin"><div><b>万物皆有魔法。</b><br><small>Product Magic Adventure</small></div><div><small>See · Discover · Connect · Create · Evolve</small></div></div></footer>
-
-<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><div><div class="chapter" id="mk">MAGIC</div><h2 id="mt"></h2></div><button class="close" id="mx">×</button></div><div class="modalbody" id="mb"></div></div></div>
-
-<script>
-/* cursor magic */
-const cur=document.getElementById('cursorSpell');
-document.addEventListener('mousemove',e=>{
-  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
-  if(Math.random()>.55){const t=document.createElement('i');t.className='trail';t.style.left=e.clientX+'px';t.style.top=e.clientY+'px';document.body.appendChild(t);setTimeout(()=>t.remove(),700)}
-});
-
-/* particles */
-const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let pts=[];
-function resize(){canvas.width=innerWidth;canvas.height=document.querySelector('.hero').offsetHeight;pts=Array.from({length:90},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.8+.4,v:Math.random()*.25+.08}))}
-resize();addEventListener('resize',resize);
-function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='rgba(255,64,145,.42)';pts.forEach(p=>{p.y-=p.v;if(p.y<0)p.y=canvas.height;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()});requestAnimationFrame(draw)}draw();
-
-/* modal */
-const modal=document.getElementById('modal');function pop(k,t,b){mk.textContent=k;mt.textContent=t;mb.innerHTML=b;modal.classList.add('show')}mx.onclick=()=>modal.classList.remove('show');modal.onclick=e=>{if(e.target===modal)modal.classList.remove('show')};
-
-/* hero interaction */
-function burst(x,y){for(let i=0;i<24;i++){let s=document.createElement('i');s.className='trail';s.style.width='10px';s.style.height='10px';s.style.left=x+'px';s.style.top=y+'px';s.style.background=i%2?'#FF4091':'#8F235C';document.body.appendChild(s);let a=Math.random()*Math.PI*2,d=50+Math.random()*120;s.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px) scale(.1)`,opacity:0}],{duration:700+Math.random()*400});setTimeout(()=>s.remove(),1200)}}
-const magicOrb=document.querySelector('.magic-orb');
-const complexityRunes=[...document.querySelectorAll('#complexityOrbit .rune')];
-let orbCollapsed=false;
-
-function prepareCollapseVectors(){
-  const orbRect=magicOrb.getBoundingClientRect();
-  const cx=orbRect.left+orbRect.width/2;
-  const cy=orbRect.top+orbRect.height/2;
-  complexityRunes.forEach(r=>{
-    const rr=r.getBoundingClientRect();
-    const rx=rr.left+rr.width/2;
-    const ry=rr.top+rr.height/2;
-    r.style.setProperty('--collapse-x',(cx-rx)+'px');
-    r.style.setProperty('--collapse-y',(cy-ry)+'px');
-  });
-}
-function toggleProductMagic(e){
-  burst(e.clientX,e.clientY);
-  prepareCollapseVectors();
-  orbCollapsed=!orbCollapsed;
-  magicOrb.classList.toggle('collapsed',orbCollapsed);
-
-}
-orbCore.onclick=toggleProductMagic;
+      <div><div class="chapter">CHAPTER
