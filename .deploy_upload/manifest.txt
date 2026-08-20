@@ -1,4 +1,4 @@
 deploy=产品魔法冒险-02-背景延展修正版.html
 chunks=8
-timestamp=2026-08-20T07:11:00Z
-note=waiting-final-chunk
+timestamp=2026-08-20T07:15:00Z
+status=ready
