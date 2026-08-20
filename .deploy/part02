@@ -1,3 +1,11 @@
+72,145,221,.07) 1px,transparent 1px),
+linear-gradient(90deg,rgba(72,145,221,.07) 1px,transparent 1px),
+radial-gradient(circle at 50% 50%,#fbfdff,#eaf4ff);
+background-size:32px 32px,32px 32px,auto}
+.path{position:absolute;left:7%;right:7%;top:52%;height:7px;border-radius:999px;
+background:linear-gradient(90deg,#F3CFDF,var(--pink),var(--berry),#FF8DBD);box-shadow:0 0 20px rgba(255,64,145,.18)}
+.world{position:absolute;width:112px;text-align:center;cursor:pointer}
+.world .orb{width:72px;height:72px;border-radius:50%;margin:auto;display:grid;place-items:center;font-size:30px;background:#fff;border:3px solid #F0D5E1;
 box-shadow:0 12px 28px rgba(13,27,52,.08);transition:.2s}
 .world:hover .orb{transform:scale(1.1)}
 .world b{display:block;margin-top:7px;font-size:12px}.world small{font-size:10px;color:var(--muted)}
@@ -145,50 +153,4 @@ footer{background:var(--dark);color:#F3EAF0;padding:30px 0}.footerin{display:fle
   box-shadow:0 12px 28px rgba(255,64,145,.25);
 }
 .end-actions button{
-  background:#FFFFFF !important;
-  color:#0D1B34 !important;
-  border:1px solid rgba(255,255,255,.9) !important;
-  box-shadow:0 12px 28px rgba(0,0,0,.12);
-}
-.end-actions a:hover,.end-actions button:hover{transform:translateY(-2px)}
-
-/* Footer remains clearly separated from the epilogue */
-footer{
-  background:#09162C !important;
-  color:#FFFFFF !important;
-  border-top:1px solid rgba(255,255,255,.10);
-}
-footer b{color:#FFFFFF !important}
-footer small{color:#BFC9D8 !important}
-
-
-/* ===== Spellbook contrast fix ===== */
-.story-book .cover{
-  background:
-    radial-gradient(circle at 50% 28%,rgba(255,64,145,.13),transparent 32%),
-    linear-gradient(180deg,#FFF8FB 0%,#FFFFFF 100%) !important;
-  color:#0D1B34 !important;
-}
-.story-book .cover .kicker{
-  color:#C72E72 !important;
-  font-weight:900;
-  letter-spacing:.16em;
-}
-.story-book .cover h2{
-  color:#0D1B34 !important;
-  opacity:1 !important;
-  text-shadow:none !important;
-}
-.story-book .cover p{
-  color:#8F235C !important;
-  opacity:1 !important;
-  font-weight:700;
-}
-.story-book .cover .btn,
-.story-book #openBook{
-  background:linear-gradient(135deg,#FF4091,#8F235C) !important;
-  color:#FFFFFF !important;
-  border-color:transparent !important;
-  box-shadow:0 12px 30px rgba(255,64,145,.24);
-}
-.story-book .page,
+  backgro
