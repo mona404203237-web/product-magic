@@ -2,32 +2,1462 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>产品魔法冒险｜Product Magic Adventure</title>
-<script>
-(async()=>{
-  try{
-    const url='https://raw.githubusercontent.com/mona404203237-web/product-magic/4d8a95272a745d0289b409ac7075d56fc4714244/index.html?v=20260820-1503';
-    const r=await fetch(url,{cache:'no-store'});
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    let html=await r.text();
-    const patch=`<style>
-/* Hero 背景延展修复：保留原页面内容与样式，只修复圆环底部背景断层 */
-.hero{padding-bottom:140px !important;}
-.questbar{margin-top:0 !important;transform:translateY(-36px);}
-@media(max-width:980px){.hero{padding-bottom:125px !important}.questbar{margin-top:0 !important;transform:translateY(-28px)}}
-@media(max-width:680px){.hero{padding-bottom:105px !important}.questbar{margin-top:0 !important;transform:translateY(-20px)}}
-</style>`;
-    html=html.replace('</head>',patch+'\n</head>');
-    document.open();
-    document.write(html);
-    document.close();
-  }catch(e){
-    console.error(e);
-    document.body.innerHTML='<main style="font-family:Inter,PingFang SC,Microsoft YaHei,Arial,sans-serif;max-width:760px;margin:80px auto;padding:32px;color:#0D1B34"><h2>魔法之门正在重新开启 ✨</h2><p>请刷新页面。</p></main>';
+<style>
+:root{
+  --night:#0D1B34;--night2:#18263F;--blue:#FF4091;--cyan:#FF8DBD;--purple:#8F235C;
+  --gold:#FFBE3C;--ink:#0D1B34;--muted:#68768B;--line:#EBE6EC;--paper:#FAFAFC;
+  --pink:#FF4091;--berry:#8F235C;--pale:#FFF4F9;--shadow:0 24px 70px rgba(13,27,52,.12)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,"PingFang SC","Microsoft YaHei",Arial,sans-serif;color:var(--ink);
+background:linear-gradient(180deg,#FFFFFF,#FAFAFC);overflow-x:hidden}
+a{text-decoration:none;color:inherit}button,textarea{font:inherit}button{cursor:pointer}
+.wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.84);backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(219,231,245,.9)}
+.navin{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.brandmark{
+  width:58px;height:48px;position:relative;display:block;flex:0 0 58px;
+  color:var(--pink);background:transparent;box-shadow:none
+}
+.logo-star{
+  position:absolute;display:block;line-height:1;
+  text-shadow:0 5px 18px rgba(255,64,145,.20);
+  user-select:none
+}
+/* 主星：最高、最大，像魔法杖亮起的第一颗星 */
+.logo-star-tall{
+  left:2px;top:-3px;font-size:46px;font-weight:300;
+  transform:scaleX(.72) scaleY(1.18);
+  color:var(--pink)
+}
+/* 优美星：更纤细、轻盈，形成高低错落 */
+.logo-star-elegant{
+  left:31px;top:5px;font-size:28px;font-weight:300;
+  transform:rotate(12deg);
+  color:var(--berry)
+}
+/* 小胖星：短小饱满，作为收尾 */
+.logo-star-fat{
+  left:38px;top:29px;font-size:18px;font-weight:900;
+  transform:scaleX(1.18) scaleY(.88);
+  color:#FF79B1
+}
+.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:.08em}
+.links{display:flex;gap:3px;align-items:center}
+.links a,.links button{border:0;background:transparent;padding:9px 12px;border-radius:11px;color:#425b77}
+.links a:hover,.links button:hover{background:var(--pale);color:var(--pink)}
+
+/* HERO */
+.hero{min-height:860px;position:relative;color:var(--ink);overflow:hidden;
+background:
+radial-gradient(circle at 74% 26%,rgba(255,64,145,.08),transparent 26%),
+radial-gradient(circle at 18% 20%,rgba(143,35,92,.05),transparent 28%),
+linear-gradient(180deg,#FFFFFF,#FAFAFC)}
+#particles{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.hero-inner{min-height:860px;display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;position:relative;z-index:2}
+.kicker{font-size:12px;letter-spacing:.18em;font-weight:900;color:var(--pink)}
+.hero h1{font-size:68px;line-height:1.04;margin:14px 0 16px;letter-spacing:-.04em}
+.hero h1 span{color:var(--pink);text-shadow:0 0 25px rgba(255,64,145,.18)}
+.hero p{font-size:18px;line-height:1.85;color:var(--muted);margin:0}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{border:0;border-radius:13px;padding:12px 17px;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--berry));
+color:#fff;box-shadow:0 12px 28px rgba(255,64,145,.22)}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink);box-shadow:none}
+.magic-orb{
+  width:410px;height:410px;border-radius:50%;margin:auto;position:relative;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 50%,rgba(255,255,255,1) 0 2%,rgba(255,64,145,.34) 14%,rgba(143,35,92,.18) 38%,rgba(255,255,255,.08) 62%);
+  box-shadow:0 0 100px rgba(255,64,145,.22),inset 0 0 90px rgba(255,255,255,.45)
+}
+.magic-orb:before,.magic-orb:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,64,145,.22)}
+.magic-orb:before{inset:42px}.magic-orb:after{inset:82px}
+.orbit{position:absolute;inset:0;animation:spin 24s linear infinite;transform-origin:50% 50%}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rune{
+  position:absolute;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.94);
+  border:1px solid var(--line);box-shadow:0 9px 25px rgba(13,27,52,.08);
+  font-size:12px;font-weight:800;color:var(--berry);backdrop-filter:blur(8px);
+  transition:
+    transform .88s cubic-bezier(.18,.9,.22,1),
+    opacity .58s ease,
+    filter .58s ease,
+    background .35s ease,
+    border-color .35s ease;
+  will-change:transform,opacity
+}
+/* 不规则分布，让首屏先呈现“复杂” */
+.r1{left:-2px;top:68px}.r2{right:8px;top:72px}.r3{left:20px;bottom:78px}.r4{right:18px;bottom:72px}
+.r5{left:158px;top:-14px}.r6{left:158px;bottom:-12px}.r7{left:-26px;top:190px}.r8{right:-28px;top:198px}
+.r9{left:72px;top:18px}.r10{right:65px;bottom:18px}.r11{right:72px;top:22px}.r12{left:62px;bottom:18px}
+
+/* 点击施法后：所有复杂标签向中心收拢 */
+.magic-orb.collapsed .orbit{animation-play-state:paused}
+.magic-orb.collapsed .rune{
+  transform:translate(var(--collapse-x,0px),var(--collapse-y,0px)) scale(.18) rotate(-10deg) !important;
+  opacity:0;
+  filter:blur(3px);
+  background:var(--pale);
+  border-color:rgba(255,64,145,.18)
+}
+.magic-orb.collapsed:before{inset:102px;border-color:rgba(255,64,145,.34)}
+.magic-orb.collapsed:after{inset:126px;border-color:rgba(143,35,92,.25)}
+.magic-orb:before,.magic-orb:after{transition:inset .8s cubic-bezier(.18,.9,.22,1),border-color .6s ease}
+.orb-result{
+  position:absolute;left:50%;top:76%;transform:translate(-50%,14px);
+  z-index:4;opacity:0;pointer-events:none;white-space:nowrap;
+  color:var(--berry);font-size:12px;font-weight:900;letter-spacing:.06em;
+  transition:opacity .45s ease .28s,transform .55s ease .28s
+}
+.magic-orb.collapsed .orb-result{opacity:1;transform:translate(-50%,0)}
+.orb-core{
+  width:145px;height:145px;border-radius:50%;border:0;color:#fff;font-weight:900;z-index:5;
+  background:linear-gradient(135deg,var(--pink),var(--berry));
+  box-shadow:0 0 0 16px rgba(255,64,145,.06),0 0 45px rgba(255,64,145,.28);
+  transition:transform .35s ease,box-shadow .55s ease,background .55s ease
+}
+.orb-core:hover{transform:scale(1.04)}
+.core-collapsed{display:none}
+.magic-orb.collapsed .orb-core{
+  transform:scale(1.14);
+  background:linear-gradient(135deg,#FF4091,#A41F62);
+  box-shadow:0 0 0 28px rgba(255,64,145,.07),0 0 70px rgba(255,64,145,.34)
+}
+.magic-orb.collapsed .core-default{display:none}
+.magic-orb.collapsed .core-collapsed{display:inline}
+.cursor-spell{
+  position:fixed;left:0;top:0;width:18px;height:18px;border-radius:50%;pointer-events:none;z-index:9999;
+  background:radial-gradient(circle,#fff 0 22%,rgba(255,64,145,.95) 28%,rgba(255,64,145,.05) 70%);
+  box-shadow:0 0 18px rgba(255,64,145,.78);transform:translate(-50%,-50%)
+}
+.trail{position:fixed;width:7px;height:7px;border-radius:50%;pointer-events:none;z-index:9998;
+background:rgba(255,64,145,.72);box-shadow:0 0 10px rgba(255,64,145,.55);animation:fadeTrail .7s forwards}
+@keyframes fadeTrail{to{opacity:0;transform:scale(.1)}}
+
+/* QUEST */
+.questbar{margin-top:-42px;position:relative;z-index:4}
+.quest{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;
+align-items:center;box-shadow:var(--shadow)}
+.quest-icon{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,#FFF4F9,#F8EDF3);display:grid;place-items:center;font-size:27px}
+.quest h3{margin:0 0 4px}.quest p{margin:0;font-size:13px;color:var(--muted)}
+.reward{padding:8px 10px;border-radius:999px;background:#FFF0F6;color:var(--berry);font-size:12px;font-weight:900}
+
+/* GENERIC */
+.section{padding:92px 0}
+.soft{background:rgba(255,255,255,.76);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:30px}
+.head h2{font-size:40px;margin:7px 0 0}
+.head p{max-width:650px;color:var(--muted);line-height:1.8;margin:0}
+.chapter{font-size:12px;letter-spacing:.14em;font-weight:900;color:var(--pink)}
+.card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:20px;box-shadow:var(--shadow);transition:.22s}
+.card:hover{transform:translateY(-4px)}
+
+/* MAGIC LIBRARY */
+.magic-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.magic-card{min-height:215px;cursor:pointer;position:relative;overflow:hidden}
+.magic-card .ico{font-size:36px}
+.magic-card small{color:var(--pink);font-weight:900}
+.magic-card h3{margin:8px 0}
+.magic-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.magic-card:after{content:"学习魔法 →";position:absolute;right:15px;bottom:13px;color:var(--pink);font-size:11px;font-weight:900}
+
+/* MAP */
+.map-shell{border-radius:28px;padding:30px;background:linear-gradient(#fff,#FAFAFC);border:1px solid var(--line);box-shadow:var(--shadow)}
+.map{min-height:500px;position:relative;border-radius:22px;overflow:hidden;
+background:
+linear-gradient(rgba(72,145,221,.07) 1px,transparent 1px),
+linear-gradient(90deg,rgba(72,145,221,.07) 1px,transparent 1px),
+radial-gradient(circle at 50% 50%,#fbfdff,#eaf4ff);
+background-size:32px 32px,32px 32px,auto}
+.path{position:absolute;left:7%;right:7%;top:52%;height:7px;border-radius:999px;
+background:linear-gradient(90deg,#F3CFDF,var(--pink),var(--berry),#FF8DBD);box-shadow:0 0 20px rgba(255,64,145,.18)}
+.world{position:absolute;width:112px;text-align:center;cursor:pointer}
+.world .orb{width:72px;height:72px;border-radius:50%;margin:auto;display:grid;place-items:center;font-size:30px;background:#fff;border:3px solid #F0D5E1;
+box-shadow:0 12px 28px rgba(13,27,52,.08);transition:.2s}
+.world:hover .orb{transform:scale(1.1)}
+.world b{display:block;margin-top:7px;font-size:12px}.world small{font-size:10px;color:var(--muted)}
+.w1{left:4%;top:44%}.w2{left:16%;top:21%}.w3{left:29%;top:55%}.w4{left:42%;top:27%}.w5{left:55%;top:57%}.w6{left:68%;top:23%}.w7{left:80%;top:48%}.w8{right:1%;top:15%}
+.fog{border-style:dashed!important;background:linear-gradient(135deg,#fff,#FFF4F9)!important}
+
+/* BOSS */
+.boss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.boss{min-height:290px;cursor:pointer;position:relative}
+.monster{font-size:56px}.boss h3{font-size:22px;margin:8px 0}
+.hp{height:9px;border-radius:999px;background:#f1edf0;overflow:hidden;margin:10px 0 14px}
+.hp span{display:block;height:100%;background:linear-gradient(90deg,#FF8DBD,var(--pink))}
+.boss p{font-size:13px;line-height:1.7;color:var(--muted)}.weak{font-size:12px;font-weight:900;color:var(--berry)}
+.boss:after{content:"⚔️ 挑战怪兽";position:absolute;right:16px;bottom:14px;font-size:11px;color:var(--pink);font-weight:900}
+
+/* SPELL WORKSHOP */
+.create{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px}
+.inventory,.forge{border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+.inventory{background:#fff;border:1px solid var(--line)}
+.items{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.item{border:1px solid var(--line);border-radius:14px;padding:13px;text-align:center;background:#fbfdff;cursor:pointer}
+.item.active{border-color:var(--pink);background:var(--pale);color:var(--berry)}
+.item .ico{font-size:27px}
+.forge{color:#fff;background:radial-gradient(circle at 30% 20%,rgba(255,64,145,.18),transparent 25%),linear-gradient(145deg,var(--night),#17243D)}
+.cauldron{min-height:230px;border-radius:20px;border:1px dashed rgba(255,255,255,.28);display:grid;place-items:center;text-align:center;background:rgba(255,255,255,.05);position:relative;overflow:hidden}
+.bubble{position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(255,64,145,.42);animation:bub 2.8s infinite ease-in}
+@keyframes bub{0%{bottom:-20px;opacity:0}20%{opacity:1}100%{bottom:110%;opacity:0}}
+.make{margin-top:14px;border:0;border-radius:12px;padding:12px 16px;background:#fff;color:var(--dark);font-weight:900}
+.forge-result{margin-top:14px;color:#FFD1E4;font-weight:900}
+
+/* STORY BOOK */
+.story-book{width:min(840px,100%);margin:auto;border-radius:28px;overflow:hidden;box-shadow:0 34px 80px rgba(10,39,88,.25);
+background:linear-gradient(145deg,var(--dark),#241833);color:#fff}
+.cover,.page{min-height:450px;padding:48px}
+.cover{display:grid;place-items:center;text-align:center}
+.cover h3{font-size:46px;margin:14px 0}.cover p{color:#F1D6E2}
+.page{display:none;background:linear-gradient(145deg,#FFFFFF,#FFF7FA);color:var(--ink)}
+.page.active{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px}
+.art{border-radius:18px;background:radial-gradient(circle at 50% 40%,rgba(255,64,145,.16),transparent 30%),linear-gradient(145deg,#FFF7FA,#F8EEF3);display:grid;place-items:center;font-size:82px}
+.page small{font-weight:900;color:var(--pink)}.page h3{font-size:38px;margin:16px 0}.page p{font-size:17px;line-height:1.85;color:var(--muted)}
+.controls{display:flex;justify-content:space-between;margin-top:28px}.controls button{border:0;border-radius:10px;padding:10px 14px;background:var(--pale);color:var(--berry)}
+
+/* AGENT */
+.agent{margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.agenttop{display:flex;gap:10px;align-items:center}
+.ai{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--pink),var(--berry));display:grid;place-items:center;color:#fff;font-weight:900}
+.agentbox{display:grid;grid-template-columns:1fr auto;gap:10px;border:1px solid var(--line);border-radius:14px;padding:9px;margin-top:12px}
+.agentbox textarea{border:0;outline:0;resize:none;background:transparent;min-height:70px}
+.answer{display:none;margin-top:12px;padding:14px;border-radius:14px;background:var(--pale);border:1px solid #F0D5E1;color:var(--berry);line-height:1.75}.answer.show{display:block}
+
+/* END */
+.end{padding:120px 0;text-align:center;color:#fff;background:radial-gradient(circle at 50% 12%,rgba(255,64,145,.20),transparent 32%),linear-gradient(180deg,var(--dark),#17243D)}
+.end h2{font-size:52px;margin:8px 0 14px}.end p{color:#E9D7E0;line-height:1.9}
+.end-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+.end-actions a,.end-actions button{padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(13,27,52,.58);backdrop-filter:blur(7px);z-index:200;padding:28px}.modal.show{display:grid;place-items:center}
+.modalbox{width:min(760px,100%);max-height:86vh;overflow:auto;background:#fff;border-radius:22px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+.modalhead{display:flex;justify-content:space-between;align-items:center;gap:20px}.close{width:38px;height:38px;border:0;border-radius:10px;background:var(--pale);font-size:20px}
+.modalbody{line-height:1.8;color:var(--muted)}
+
+footer{background:var(--dark);color:#F3EAF0;padding:30px 0}.footerin{display:flex;justify-content:space-between;gap:20px}footer small{color:#B8C0CE}
+
+@media(max-width:980px){
+.hero-inner{grid-template-columns:1fr}.magic-grid{grid-template-columns:repeat(2,1fr)}.boss-grid{grid-template-columns:1fr 1fr}.create{grid-template-columns:1fr}.page.active{grid-template-columns:1fr}.links a:nth-child(n+5){display:none}
+}
+@media(max-width:680px){
+.hero h1{font-size:46px}.magic-orb{width:330px;height:330px}.magic-grid,.boss-grid{grid-template-columns:1fr}.head{display:block}.links a{display:none}.items{grid-template-columns:1fr}.map{min-height:760px}.world{position:relative!important;left:auto!important;right:auto!important;top:auto!important;margin:18px auto}.path{display:none}.end h2{font-size:38px}
+}
+
+/* Portfolio palette final overrides */
+.soft{background:#FFFFFF;border-color:var(--line)}
+.card,.inventory,.agent,.modalbox{background:#FFFFFF}
+.magic-card:after,.boss:after{color:var(--pink)}
+.world:hover .orb{border-color:var(--pink)}
+.story-book .kicker,.end .kicker{color:#FFD1E4}
+.cover .btn.ghost{color:#fff;border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.08)}
+
+
+/* ===== Contrast Fix v2 ===== */
+
+/* 1. 魔法熔炉按钮：白底在深色熔炉里不够有魔法感，改成主色高对比按钮 */
+.forge .make{
+  min-width:180px;
+  min-height:52px;
+  padding:14px 24px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;
+  background:linear-gradient(135deg,#FF4091,#8F235C);
+  color:#FFFFFF !important;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:.03em;
+  box-shadow:0 12px 30px rgba(255,64,145,.30),0 0 0 1px rgba(255,255,255,.06) inset;
+  transition:.2s ease;
+}
+.forge .make:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 36px rgba(255,64,145,.38),0 0 0 1px rgba(255,255,255,.10) inset;
+}
+.forge .make:active{transform:translateY(0) scale(.98)}
+.forge-result{
+  color:#FFD6E7 !important;
+  text-shadow:0 1px 10px rgba(255,64,145,.12);
+}
+
+/* 2. 尾声区域：之前深色区域被全局浅色覆盖，强制恢复午夜深蓝背景与高对比文字 */
+.end{
+  position:relative;
+  isolation:isolate;
+  color:#FFFFFF !important;
+  background:
+    radial-gradient(circle at 50% 18%,rgba(255,64,145,.22),transparent 31%),
+    radial-gradient(circle at 78% 64%,rgba(143,35,92,.18),transparent 24%),
+    linear-gradient(180deg,#0D1B34 0%,#13233F 100%) !important;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.end .wrap{position:relative;z-index:2}
+.end .kicker{
+  color:#FF8DBD !important;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.end h2{
+  color:#FFFFFF !important;
+  text-shadow:0 4px 24px rgba(0,0,0,.18);
+}
+.end p{
+  color:#E8DDE4 !important;
+  font-weight:500;
+}
+.end-actions a,
+.end-actions button{
+  min-width:170px;
+  padding:13px 20px;
+  border-radius:13px;
+  font-weight:900;
+  color:#FFFFFF !important;
+  transition:.2s ease;
+}
+.end-actions a{
+  background:linear-gradient(135deg,#FF4091,#8F235C) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  box-shadow:0 12px 28px rgba(255,64,145,.25);
+}
+.end-actions button{
+  background:#FFFFFF !important;
+  color:#0D1B34 !important;
+  border:1px solid rgba(255,255,255,.9) !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+.end-actions a:hover,.end-actions button:hover{transform:translateY(-2px)}
+
+/* Footer remains clearly separated from the epilogue */
+footer{
+  background:#09162C !important;
+  color:#FFFFFF !important;
+  border-top:1px solid rgba(255,255,255,.10);
+}
+footer b{color:#FFFFFF !important}
+footer small{color:#BFC9D8 !important}
+
+
+/* ===== Spellbook contrast fix ===== */
+.story-book .cover{
+  background:
+    radial-gradient(circle at 50% 28%,rgba(255,64,145,.13),transparent 32%),
+    linear-gradient(180deg,#FFF8FB 0%,#FFFFFF 100%) !important;
+  color:#0D1B34 !important;
+}
+.story-book .cover .kicker{
+  color:#C72E72 !important;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.story-book .cover h2{
+  color:#0D1B34 !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+}
+.story-book .cover p{
+  color:#8F235C !important;
+  opacity:1 !important;
+  font-weight:700;
+}
+.story-book .cover .btn,
+.story-book #openBook{
+  background:linear-gradient(135deg,#FF4091,#8F235C) !important;
+  color:#FFFFFF !important;
+  border-color:transparent !important;
+  box-shadow:0 12px 30px rgba(255,64,145,.24);
+}
+.story-book .page,
+.story-book .book-page{
+  color:#0D1B34 !important;
+}
+
+
+/* ===== Creation Workshop final visibility patch ===== */
+/* 右侧元素同时带有 card + forge，两套样式会冲突；这里提高优先级，强制熔炉保持深色 */
+.card.forge,
+#create .forge,
+#forge .forge{
+  background:
+    radial-gradient(circle at 32% 18%,rgba(255,64,145,.20),transparent 30%),
+    radial-gradient(circle at 78% 72%,rgba(143,35,92,.18),transparent 26%),
+    linear-gradient(145deg,#0D1B34 0%,#18263F 100%) !important;
+  color:#FFFFFF !important;
+  border:1px solid rgba(13,27,52,.08) !important;
+}
+.card.forge h3,
+#create .forge h3,
+#forge .forge h3{
+  color:#FFFFFF !important;
+  opacity:1 !important;
+}
+.card.forge .cauldron,
+#create .forge .cauldron,
+#forge .forge .cauldron{
+  background:rgba(255,255,255,.035) !important;
+  border:1.5px dashed rgba(255,255,255,.32) !important;
+}
+.card.forge .cauldron b,
+#create .forge .cauldron b,
+#forge .forge .cauldron b{
+  color:#FFFFFF !important;
+  -webkit-text-fill-color:#FFFFFF !important;
+  opacity:1 !important;
+  font-weight:900 !important;
+}
+.card.forge .cauldron p,
+#create .forge .cauldron p,
+#forge .forge .cauldron p,
+.card.forge .cauldron div[style*="font-size:12px"]{
+  color:#F6D4E3 !important;
+  -webkit-text-fill-color:#F6D4E3 !important;
+  opacity:1 !important;
+}
+.card.forge .make,
+#create .forge .make,
+#forge .forge .make{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:190px !important;
+  min-height:54px !important;
+  margin-top:18px !important;
+  padding:14px 24px !important;
+  background:linear-gradient(135deg,#FF4091,#8F235C) !important;
+  color:#FFFFFF !important;
+  -webkit-text-fill-color:#FFFFFF !important;
+  border:0 !important;
+  border-radius:14px !important;
+  font-weight:900 !important;
+  font-size:15px !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  box-shadow:0 14px 34px rgba(255,64,145,.34) !important;
+}
+.card.forge .forge-result,
+#create .forge .forge-result,
+#forge .forge .forge-result,
+#result.forge-result{
+  color:#FFD8E8 !important;
+  -webkit-text-fill-color:#FFD8E8 !important;
+  opacity:1 !important;
+  font-weight:900 !important;
+  line-height:1.6 !important;
+}
+
+
+@media(max-width:680px){
+  .magic-orb .rune{font-size:10px;padding:7px 9px}
+  .orb-result{font-size:10px;top:78%}
+}
+
+
+/* ===== Irregular complexity labels around the magic orb ===== */
+.magic-orb{
+  overflow:visible !important;
+}
+
+/* 不再整圈旋转；标签像复杂问题一样散落在中心周围 */
+#complexityOrbit{
+  position:absolute;
+  inset:-145px !important;
+  animation:none !important;
+  transform:none !important;
+  pointer-events:none;
+}
+
+/* 每个标签独立轻微漂浮，不规则、不同角度、不同远近 */
+#complexityOrbit .rune{
+  position:absolute !important;
+  font-size:13px;
+  padding:10px 15px;
+  border-radius:999px;
+  background:rgba(255,255,255,.96);
+  color:#526881;
+  border:1px solid #DDE5EF;
+  box-shadow:0 10px 26px rgba(13,27,52,.06);
+  transform-origin:center;
+  animation:labelFloat 4.8s ease-in-out infinite;
+}
+
+/* 位置参考：围绕中心不规则散开，而不是等距圆环 */
+#complexityOrbit .r1{left:4%; top:5%; transform:rotate(-4deg)}
+#complexityOrbit .r2{left:39%; top:2%; transform:rotate(3deg); animation-delay:.5s}
+#complexityOrbit .r3{right:8%; top:4%; transform:rotate(7deg); animation-delay:1s}
+#complexityOrbit .r4{left:1%; top:34%; transform:rotate(-6deg); animation-delay:1.4s}
+#complexityOrbit .r5{right:-1%; top:31%; transform:rotate(5deg); animation-delay:.8s}
+#complexityOrbit .r6{right:-6%; top:58%; transform:rotate(-3deg); animation-delay:1.8s}
+#complexityOrbit .r7{left:-3%; bottom:7%; transform:rotate(-7deg); animation-delay:1.2s}
+#complexityOrbit .r8{right:10%; bottom:4%; transform:rotate(4deg); animation-delay:2.1s}
+#complexityOrbit .r9{left:22%; bottom:-2%; transform:rotate(2deg); animation-delay:.4s}
+#complexityOrbit .r10{left:8%; top:58%; transform:rotate(5deg); animation-delay:1.6s}
+#complexityOrbit .r11{right:20%; top:19%; transform:rotate(-5deg); animation-delay:.7s}
+#complexityOrbit .r12{left:45%; bottom:2%; transform:rotate(-2deg); animation-delay:2.4s}
+
+@keyframes labelFloat{
+  0%,100%{margin-top:0}
+  50%{margin-top:-7px}
+}
+
+/* 收拢时暂停漂浮，所有标签向中心吸入 */
+.magic-orb.collapsed #complexityOrbit .rune{
+  animation:none !important;
+  transform:
+    translate(var(--collapse-x,0px),var(--collapse-y,0px))
+    scale(.16)
+    rotate(0deg) !important;
+  opacity:0 !important;
+  filter:blur(3px);
+}
+
+/* 让中央区域更像参考图：三层柔和粉色光环 */
+.magic-orb{
+  box-shadow:
+    0 0 0 34px rgba(255,64,145,.055),
+    0 0 0 72px rgba(255,64,145,.035),
+    0 0 90px rgba(255,64,145,.18),
+    inset 0 0 70px rgba(255,255,255,.48) !important;
+}
+.magic-orb:before{
+  inset:-38px !important;
+  border:1px solid rgba(255,64,145,.18) !important;
+}
+.magic-orb:after{
+  inset:-82px !important;
+  border:1px solid rgba(255,64,145,.10) !important;
+}
+
+/* 收拢后光环一起向中心收紧 */
+.magic-orb.collapsed:before{inset:72px !important}
+.magic-orb.collapsed:after{inset:102px !important}
+
+@media(max-width:980px){
+  #complexityOrbit{inset:-95px !important}
+  #complexityOrbit .rune{font-size:11px;padding:8px 11px}
+}
+@media(max-width:680px){
+  #complexityOrbit{inset:-48px !important}
+  #complexityOrbit .rune{font-size:9px;padding:6px 8px}
+}
+
+
+/* ===== Orb layout cleanup v3 ===== */
+
+/* 中央魔法球只负责圆形本体，不承载大面积白色卡片 */
+.magic-orb{
+  width:410px !important;
+  height:410px !important;
+  min-width:410px !important;
+  min-height:410px !important;
+  border-radius:50% !important;
+  overflow:visible !important;
+  position:relative !important;
+  display:grid !important;
+  place-items:center !important;
+}
+
+/* 复杂标签层只是一个透明定位层，不参与普通流布局 */
+#complexityOrbit{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:650px !important;
+  height:650px !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:translate(-50%,-50%) !important;
+  animation:none !important;
+  background:transparent !important;
+  border:0 !important;
+  overflow:visible !important;
+  pointer-events:none !important;
+}
+
+/* 每个标签固定为小胶囊，绝不拉伸成大白块 */
+#complexityOrbit .rune{
+  position:absolute !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:max-content !important;
+  min-width:0 !important;
+  max-width:none !important;
+  height:42px !important;
+  min-height:42px !important;
+  padding:0 16px !important;
+  margin:0 !important;
+  white-space:nowrap !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.96) !important;
+  color:#526881 !important;
+  border:1px solid #DDE5EF !important;
+  box-shadow:0 10px 26px rgba(13,27,52,.07) !important;
+  font-size:13px !important;
+  line-height:1 !important;
+  font-weight:800 !important;
+  box-sizing:border-box !important;
+  transform-origin:center !important;
+  animation:labelFloat 4.8s ease-in-out infinite !important;
+}
+
+/* 参考你给的样式：不规则、高低、远近都不一样 */
+#complexityOrbit .r1 {left:4%;   top:6%;   transform:rotate(-5deg)}
+#complexityOrbit .r2 {left:43%;  top:1%;   transform:rotate(3deg);  animation-delay:.5s !important}
+#complexityOrbit .r3 {right:5%;  top:7%;   transform:rotate(6deg);  animation-delay:1.0s !important}
+#complexityOrbit .r4 {left:-1%;  top:34%;  transform:rotate(-7deg); animation-delay:1.4s !important}
+#complexityOrbit .r5 {right:-2%; top:30%;  transform:rotate(5deg);  animation-delay:.8s !important}
+#complexityOrbit .r6 {right:-5%; top:58%;  transform:rotate(-3deg); animation-delay:1.8s !important}
+#complexityOrbit .r7 {left:1%;   bottom:9%;transform:rotate(-5deg); animation-delay:1.2s !important}
+#complexityOrbit .r8 {right:9%;  bottom:5%;transform:rotate(4deg);  animation-delay:2.1s !important}
+#complexityOrbit .r9 {left:22%;  bottom:0%;transform:rotate(2deg);  animation-delay:.4s !important}
+#complexityOrbit .r10{left:9%;   top:61%; transform:rotate(5deg);  animation-delay:1.6s !important}
+#complexityOrbit .r11{right:18%; top:19%; transform:rotate(-5deg); animation-delay:.7s !important}
+#complexityOrbit .r12{left:47%;  bottom:3%;transform:rotate(-2deg); animation-delay:2.4s !important}
+
+/* 小范围轻漂浮，只动 Y，不改变元素宽高 */
+@keyframes labelFloat{
+  0%,100%{ translate:0 0; }
+  50%{ translate:0 -7px; }
+}
+
+/* 点击后全部吸入中心 */
+.magic-orb.collapsed #complexityOrbit .rune{
+  animation:none !important;
+  translate:0 0 !important;
+  transform:
+    translate(var(--collapse-x,0px),var(--collapse-y,0px))
+    scale(.14)
+    rotate(0deg) !important;
+  opacity:0 !important;
+  filter:blur(3px) !important;
+}
+
+/* 清理光环：只保留纯圆形边界，不产生任何白色填充 */
+.magic-orb::before,
+.magic-orb::after{
+  content:"" !important;
+  position:absolute !important;
+  border-radius:50% !important;
+  background:transparent !important;
+  pointer-events:none !important;
+  box-sizing:border-box !important;
+}
+.magic-orb::before{
+  inset:-40px !important;
+  border:1px solid rgba(255,64,145,.18) !important;
+}
+.magic-orb::after{
+  inset:-82px !important;
+  border:1px solid rgba(255,64,145,.10) !important;
+}
+
+.magic-orb.collapsed::before{inset:72px !important}
+.magic-orb.collapsed::after{inset:102px !important}
+
+@media(max-width:980px){
+  .magic-orb{
+    width:360px !important;height:360px !important;
+    min-width:360px !important;min-height:360px !important;
   }
-})();
-</script>
+  #complexityOrbit{
+    width:540px !important;height:540px !important;
+  }
+  #complexityOrbit .rune{
+    height:38px !important;
+    min-height:38px !important;
+    padding:0 13px !important;
+    font-size:11px !important;
+  }
+}
+@media(max-width:680px){
+  .magic-orb{
+    width:300px !important;height:300px !important;
+    min-width:300px !important;min-height:300px !important;
+  }
+  #complexityOrbit{
+    width:390px !important;height:390px !important;
+  }
+  #complexityOrbit .rune{
+    height:31px !important;
+    min-height:31px !important;
+    padding:0 9px !important;
+    font-size:9px !important;
+  }
+}
+
+
+/* ===== Balanced irregular label distribution v4 ===== */
+#complexityOrbit .r1 {left:8%;   top:7%;    transform:rotate(-5deg)}
+#complexityOrbit .r2 {left:41%;  top:1%;    transform:rotate(2deg);  animation-delay:.5s !important}
+#complexityOrbit .r3 {right:8%;  top:8%;    transform:rotate(5deg);  animation-delay:1.0s !important}
+
+#complexityOrbit .r4 {left:-2%;  top:33%;   transform:rotate(-6deg); animation-delay:1.4s !important}
+#complexityOrbit .r10{left:4%;   top:60%;   transform:rotate(4deg);  animation-delay:1.6s !important}
+#complexityOrbit .r7 {left:15%;  bottom:7%; transform:rotate(-4deg); animation-delay:1.2s !important}
+
+#complexityOrbit .r11{right:4%;  top:28%;   transform:rotate(-4deg); animation-delay:.7s !important}
+#complexityOrbit .r5 {right:-3%; top:53%;   transform:rotate(5deg);  animation-delay:.8s !important}
+#complexityOrbit .r8 {right:13%; bottom:8%; transform:rotate(4deg);  animation-delay:2.1s !important}
+
+#complexityOrbit .r9 {left:36%;  bottom:-1%;transform:rotate(2deg);  animation-delay:.4s !important}
+#complexityOrbit .r12{left:53%;  bottom:5%; transform:rotate(-2deg); animation-delay:2.4s !important}
+#complexityOrbit .r6 {right:32%; bottom:-2%;transform:rotate(3deg);  animation-delay:1.8s !important}
+
+/* collapsed center text should fit cleanly */
+.magic-orb.collapsed .orb-core{
+  width:175px !important;
+  height:175px !important;
+}
+.core-collapsed{
+  max-width:120px;
+  line-height:1.35;
+  text-align:center;
+  white-space:normal;
+}
+
+
+/* ===== 10 个复杂标签：均衡环绕分布 ===== */
+#complexityOrbit .r1 {left:12%;  top:4%;    transform:rotate(-5deg)}   /* 需求 */
+#complexityOrbit .r2 {left:40%;  top:0%;    transform:rotate(2deg);  animation-delay:.4s !important} /* 数据 */
+#complexityOrbit .r3 {right:11%; top:7%;    transform:rotate(5deg);  animation-delay:.9s !important} /* 商业 */
+
+#complexityOrbit .r4 {right:-2%; top:33%;   transform:rotate(-4deg); animation-delay:1.3s !important} /* AI */
+#complexityOrbit .r5 {right:3%;  bottom:19%;transform:rotate(4deg);  animation-delay:.7s !important} /* Agent */
+#complexityOrbit .r6 {right:22%; bottom:2%; transform:rotate(-3deg); animation-delay:1.8s !important} /* 组织 */
+
+#complexityOrbit .r7 {left:11%;  bottom:5%; transform:rotate(-4deg); animation-delay:1.1s !important} /* 成本 */
+#complexityOrbit .r8 {left:-3%;  bottom:28%;transform:rotate(5deg);  animation-delay:1.5s !important} /* 技术 */
+#complexityOrbit .r9 {left:-2%;  top:37%;   transform:rotate(-6deg); animation-delay:.6s !important} /* 平台 */
+#complexityOrbit .r10{left:23%;  bottom:0%; transform:rotate(3deg);  animation-delay:2.1s !important} /* 流程 */
+
+/* 保持胶囊大小稳定，不拉伸 */
+#complexityOrbit .rune{
+  width:max-content !important;
+  min-width:0 !important;
+  max-width:none !important;
+  white-space:nowrap !important;
+}
+
+
+/* ===== Reference-style magic orb layout ===== */
+.orb-stage{
+  min-height:650px !important;
+  display:grid !important;
+  place-items:center !important;
+  overflow:visible !important;
+}
+.magic-orb{
+  width:330px !important;
+  height:330px !important;
+  min-width:330px !important;
+  min-height:330px !important;
+  border-radius:50% !important;
+  position:relative !important;
+  overflow:visible !important;
+  background:linear-gradient(135deg,#FF4091,#B51F67) !important;
+  box-shadow:
+    0 0 0 24px rgba(255,64,145,.10),
+    0 0 0 54px rgba(255,64,145,.075),
+    0 0 0 92px rgba(255,64,145,.045),
+    0 28px 70px rgba(255,64,145,.20) !important;
+}
+.magic-orb::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:-55px !important;
+  border-radius:50% !important;
+  border:1px solid rgba(255,64,145,.16) !important;
+  background:transparent !important;
+}
+.magic-orb::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:-92px !important;
+  border-radius:50% !important;
+  border:1px solid rgba(255,64,145,.08) !important;
+  background:transparent !important;
+}
+
+/* 透明定位层，形成与参考图一致的 10 点分布 */
+#complexityOrbit{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:680px !important;
+  height:560px !important;
+  transform:translate(-50%,-50%) !important;
+  animation:none !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+  background:transparent !important;
+  border:0 !important;
+}
+
+/* 每个标签都是轻盈的小胶囊 */
+#complexityOrbit .rune{
+  position:absolute !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:10px !important;
+  width:max-content !important;
+  min-width:96px !important;
+  max-width:none !important;
+  height:46px !important;
+  padding:0 18px !important;
+  margin:0 !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.97) !important;
+  color:#32465F !important;
+  border:1px solid rgba(255,64,145,.12) !important;
+  box-shadow:
+    0 10px 28px rgba(13,27,52,.07),
+    0 0 24px rgba(255,64,145,.11) !important;
+  font-size:13px !important;
+  line-height:1 !important;
+  font-weight:800 !important;
+  white-space:nowrap !important;
+  animation:labelFloat 4.8s ease-in-out infinite !important;
+}
+#complexityOrbit .rune-icon{
+  color:#FF4091 !important;
+  font-size:17px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  min-width:18px !important;
+  text-align:center !important;
+}
+
+/* 参考图的 10 个固定位置 */
+#complexityOrbit .r1 {left:42%;  top:-2%;  animation-delay:.2s !important}   /* 需求 */
+#complexityOrbit .r2 {left:8%;   top:12%;  animation-delay:.8s !important}   /* 数据 */
+#complexityOrbit .r3 {right:8%;  top:12%;  animation-delay:1.0s !important}   /* 商业 */
+#complexityOrbit .r4 {left:0%;   top:39%;  animation-delay:1.4s !important}   /* Agent */
+#complexityOrbit .r5 {right:0%;  top:39%;  animation-delay:.6s !important}    /* AI */
+#complexityOrbit .r6 {left:1%;   bottom:14%;animation-delay:1.8s !important}  /* 流程 */
+#complexityOrbit .r7 {right:1%;  bottom:14%;animation-delay:.9s !important}   /* 组织 */
+#complexityOrbit .r8 {left:14%;  bottom:-1%;animation-delay:1.2s !important}  /* 平台 */
+#complexityOrbit .r9 {left:42%;  bottom:-7%;animation-delay:.4s !important}   /* 技术 */
+#complexityOrbit .r10{right:14%; bottom:-1%;animation-delay:2.0s !important}  /* 成本 */
+
+@keyframes labelFloat{
+  0%,100%{translate:0 0}
+  50%{translate:0 -6px}
+}
+
+/* 中央按钮 */
+.orb-core{
+  width:150px !important;
+  height:150px !important;
+  border-radius:50% !important;
+  background:linear-gradient(135deg,#FF4091,#B51F67) !important;
+  color:#FFFFFF !important;
+  font-size:16px !important;
+  font-weight:900 !important;
+  box-shadow:0 14px 36px rgba(181,31,103,.25) !important;
+  transition:transform .3s ease, box-shadow .3s ease !important;
+}
+.orb-core:hover{
+  transform:scale(1.05) !important;
+  box-shadow:0 18px 42px rgba(181,31,103,.32) !important;
+}
+
+/* 点击后吸入中心 */
+.magic-orb.collapsed #complexityOrbit .rune{
+  animation:none !important;
+  translate:0 0 !important;
+  transform:
+    translate(var(--collapse-x,0px),var(--collapse-y,0px))
+    scale(.12) !important;
+  opacity:0 !important;
+  filter:blur(3px) !important;
+}
+.magic-orb.collapsed .orb-core{
+  width:178px !important;
+  height:178px !important;
+}
+.core-collapsed{
+  display:none;
+  max-width:130px;
+  line-height:1.35;
+  text-align:center;
+  white-space:normal;
+}
+.magic-orb.collapsed .core-default{display:none !important}
+.magic-orb.collapsed .core-collapsed{display:inline !important}
+
+@media(max-width:980px){
+  .magic-orb{
+    width:300px !important;height:300px !important;
+    min-width:300px !important;min-height:300px !important;
+  }
+  #complexityOrbit{
+    width:580px !important;height:500px !important;
+  }
+  #complexityOrbit .rune{
+    min-width:86px !important;
+    height:42px !important;
+    padding:0 14px !important;
+    font-size:12px !important;
+  }
+}
+@media(max-width:680px){
+  .magic-orb{
+    width:250px !important;height:250px !important;
+    min-width:250px !important;min-height:250px !important;
+  }
+  #complexityOrbit{
+    width:390px !important;height:400px !important;
+  }
+  #complexityOrbit .rune{
+    min-width:72px !important;
+    height:34px !important;
+    padding:0 10px !important;
+    gap:6px !important;
+    font-size:10px !important;
+  }
+  #complexityOrbit .rune-icon{font-size:13px !important}
+}
+
+
+/* ===== Final balanced capsule distribution around the magic ring ===== */
+/* 仅调整 10 个胶囊标签的位置，保持现有热粉配色、尺寸、光环和交互不变 */
+#complexityOrbit{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:720px !important;
+  height:610px !important;
+  transform:translate(-50%,-50%) !important;
+  overflow:visible !important;
+  pointer-events:none !important;
+}
+
+/* 标签围绕圆环均衡分布：上2、右3、下2、左3 */
+#complexityOrbit .r1 {left:35% !important; top:-2% !important;}      /* 需求 */
+#complexityOrbit .r2 {left:7% !important;  top:12% !important;}      /* 数据 */
+#complexityOrbit .r3 {right:7% !important; top:12% !important;}      /* 商业 */
+
+#complexityOrbit .r4 {left:-1% !important; top:39% !important;}      /* Agent */
+#complexityOrbit .r5 {right:-1% !important; top:39% !important;}     /* AI */
+
+#complexityOrbit .r6 {left:5% !important;  bottom:13% !important;}   /* 流程 */
+#complexityOrbit .r7 {right:5% !important; bottom:13% !important;}   /* 组织 */
+
+#complexityOrbit .r8 {left:20% !important; bottom:-1% !important;}   /* 平台 */
+#complexityOrbit .r9 {left:43% !important; bottom:-6% !important;}   /* 技术 */
+#complexityOrbit .r10{right:18% !important; bottom:-1% !important;}  /* 成本 */
+
+/* 轻微错落，避免机械等距，但整体仍保持均衡 */
+#complexityOrbit .r1{transform:rotate(-2deg) !important}
+#complexityOrbit .r2{transform:rotate(-5deg) !important}
+#complexityOrbit .r3{transform:rotate(5deg) !important}
+#complexityOrbit .r4{transform:rotate(-4deg) !important}
+#complexityOrbit .r5{transform:rotate(4deg) !important}
+#complexityOrbit .r6{transform:rotate(-3deg) !important}
+#complexityOrbit .r7{transform:rotate(3deg) !important}
+#complexityOrbit .r8{transform:rotate(-2deg) !important}
+#complexityOrbit .r9{transform:rotate(1deg) !important}
+#complexityOrbit .r10{transform:rotate(2deg) !important}
+
+/* 点击聚拢时覆盖上面的静态旋转，确保仍然全部吸入中心 */
+.magic-orb.collapsed #complexityOrbit .rune{
+  transform:
+    translate(var(--collapse-x,0px),var(--collapse-y,0px))
+    scale(.12) !important;
+}
+
+@media(max-width:980px){
+  #complexityOrbit{
+    width:610px !important;
+    height:540px !important;
+  }
+}
+@media(max-width:680px){
+  #complexityOrbit{
+    width:410px !important;
+    height:410px !important;
+  }
+  #complexityOrbit .r1 {left:34% !important; top:-1% !important;}
+  #complexityOrbit .r2 {left:3% !important; top:12% !important;}
+  #complexityOrbit .r3 {right:3% !important; top:12% !important;}
+  #complexityOrbit .r4 {left:-3% !important; top:39% !important;}
+  #complexityOrbit .r5 {right:-3% !important; top:39% !important;}
+  #complexityOrbit .r6 {left:2% !important; bottom:14% !important;}
+  #complexityOrbit .r7 {right:2% !important; bottom:14% !important;}
+  #complexityOrbit .r8 {left:17% !important; bottom:0% !important;}
+  #complexityOrbit .r9 {left:42% !important; bottom:-4% !important;}
+  #complexityOrbit .r10{right:15% !important; bottom:0% !important;}
+}
+
+
+/* =========================================================
+   FINAL ORBIT DISTRIBUTION FIX
+   10 个胶囊围绕圆环完整均衡分布，避免左侧扎堆
+   ========================================================= */
+
+/* 标签轨道围绕中心魔法球，整体保持居中 */
+#complexityOrbit{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:650px !important;
+  height:560px !important;
+  transform:translate(-50%,-50%) !important;
+  overflow:visible !important;
+  pointer-events:none !important;
+  animation:none !important;
+  background:transparent !important;
+  border:0 !important;
+}
+
+/* 统一胶囊本体，消除旧规则带来的偏移 */
+#complexityOrbit .rune{
+  position:absolute !important;
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:auto !important;
+
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:9px !important;
+
+  width:max-content !important;
+  min-width:92px !important;
+  height:44px !important;
+  min-height:44px !important;
+  padding:0 16px !important;
+  margin:0 !important;
+
+  border-radius:999px !important;
+  background:rgba(255,255,255,.97) !important;
+  border:1px solid rgba(255,64,145,.13) !important;
+  box-shadow:
+    0 10px 26px rgba(13,27,52,.07),
+    0 0 22px rgba(255,64,145,.10) !important;
+
+  color:#32465F !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+
+  opacity:1 !important;
+  filter:none !important;
+  translate:0 0 !important;
+  scale:1 !important;
+  rotate:0deg !important;
+  animation:orbitFloat 5s ease-in-out infinite !important;
+  transform:translate(-50%,-50%) !important;
+}
+
+/* 图标保持热粉 */
+#complexityOrbit .rune-icon{
+  color:#FF4091 !important;
+  font-size:17px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  min-width:18px !important;
+  text-align:center !important;
+}
+
+/*
+  真实“圆环式”分布：
+  上 → 右上 → 右 → 右下 → 下右 → 下 → 下左 → 左 → 左上
+  让左右数量视觉上均衡。
+*/
+#complexityOrbit .r1 {left:50% !important; top:4%  !important; animation-delay:.0s !important;}  /* 需求 */
+#complexityOrbit .r3 {left:78% !important; top:15% !important; animation-delay:.5s !important;}  /* 商业 */
+#complexityOrbit .r5 {left:92% !important; top:38% !important; animation-delay:1.0s !important;}  /* AI */
+#complexityOrbit .r7 {left:88% !important; top:66% !important; animation-delay:1.5s !important;}  /* 组织 */
+#complexityOrbit .r10{left:70% !important; top:86% !important; animation-delay:2.0s !important;}  /* 成本 */
+#complexityOrbit .r9 {left:50% !important; top:95% !important; animation-delay:2.5s !important;}  /* 技术 */
+#complexityOrbit .r8 {left:30% !important; top:86% !important; animation-delay:3.0s !important;}  /* 平台 */
+#complexityOrbit .r6 {left:12% !important; top:66% !important; animation-delay:3.5s !important;}  /* 流程 */
+#complexityOrbit .r4 {left:8%  !important; top:38% !important; animation-delay:4.0s !important;}  /* Agent */
+#complexityOrbit .r2 {left:22% !important; top:15% !important; animation-delay:4.5s !important;}  /* 数据 */
+
+@keyframes orbitFloat{
+  0%,100%{margin-top:0}
+  50%{margin-top:-6px}
+}
+
+/* 点击后，所有胶囊仍然吸入圆心 */
+.magic-orb.collapsed #complexityOrbit .rune{
+  animation:none !important;
+  margin-top:0 !important;
+  opacity:0 !important;
+  filter:blur(3px) !important;
+  transform:
+    translate(var(--collapse-x,0px),var(--collapse-y,0px))
+    scale(.12) !important;
+}
+
+/* 让右侧轨道不被裁掉 */
+.hero,
+.hero-inner,
+.magic-orb{
+  overflow:visible !important;
+}
+
+/* 平板 */
+@media(max-width:980px){
+  #complexityOrbit{
+    width:560px !important;
+    height:500px !important;
+  }
+  #complexityOrbit .rune{
+    min-width:82px !important;
+    height:40px !important;
+    min-height:40px !important;
+    padding:0 13px !important;
+    font-size:12px !important;
+  }
+}
+
+/* 手机 */
+@media(max-width:680px){
+  #complexityOrbit{
+    width:400px !important;
+    height:390px !important;
+  }
+  #complexityOrbit .rune{
+    min-width:68px !important;
+    height:32px !important;
+    min-height:32px !important;
+    padding:0 9px !important;
+    gap:5px !important;
+    font-size:10px !important;
+  }
+  #complexityOrbit .rune-icon{
+    font-size:13px !important;
+    min-width:13px !important;
+  }
+}
+
+</style>
+
+<style>
+/* ===== Quest block spacing fix =====
+   原版 .questbar 使用 margin-top:-42px，把任务板块向上拉，导致与上方魔法圆环/标签拥挤。
+   这里取消负边距，并增加明确的垂直留白。 */
+.questbar{
+  margin-top:48px !important;
+}
+
+@media(max-width:980px){
+  .questbar{
+    margin-top:56px !important;
+  }
+}
+
+@media(max-width:680px){
+  .questbar{
+    margin-top:42px !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== Hero 魔法背景向下延展 =====
+   保留上一版任务卡间距，同时让粒子/气泡背景覆盖圆环底部和技术标签之后的呼吸区。 */
+.hero{
+  padding-bottom:140px !important;
+}
+
+/* 任务卡保持与 Hero 分离，但不再制造背景断层 */
+.questbar{
+  margin-top:0 !important;
+  transform:translateY(-36px);
+}
+
+@media(max-width:980px){
+  .hero{padding-bottom:125px !important;}
+  .questbar{
+    margin-top:0 !important;
+    transform:translateY(-28px);
+  }
+}
+
+@media(max-width:680px){
+  .hero{padding-bottom:105px !important;}
+  .questbar{
+    margin-top:0 !important;
+    transform:translateY(-20px);
+  }
+}
+</style>
+
 </head>
-<body></body>
+<body>
+<div class="cursor-spell" id="cursorSpell"></div>
+
+<header class="nav">
+  <div class="wrap navin">
+    <a class="brand" href="#home"><div class="brandmark" aria-label="产品魔法冒险">
+      <span class="logo-star logo-star-tall">✦</span>
+      <span class="logo-star logo-star-elegant">✧</span>
+      <span class="logo-star logo-star-fat">✦</span>
+    </div><div>产品魔法冒险<small>PRODUCT MAGIC ADVENTURE</small></div></a>
+    <nav class="links">
+      <a href="#home">魔法之门</a><a href="#magic">魔法图鉴</a><a href="#map">冒险地图</a><a href="#boss">怪兽挑战</a><a href="#create">创造</a><a href="#book">魔法书</a>
+      <button id="askTop">🪄 召唤魔法师</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <canvas id="particles"></canvas>
+  <div class="wrap hero-inner">
+    <div>
+      <div class="kicker">PROLOGUE · 魔法之门</div>
+      <h1>魔法赴世间万千奇遇</h1>
+      <p>凡有心之所向皆有魔法回响</p>
+      <div class="hero-actions">
+        <button class="btn" id="startAdventure">✨ 开始冒险</button>
+        <button class="btn ghost" id="castAnywhere">🪄 在这里施法</button>
+      </div>
+    </div>
+    <div class="magic-orb">
+      <div class="orbit" id="complexityOrbit" aria-label="复杂问题标签">
+        <div class="rune r1"><span class="rune-icon">◎</span><span>需求</span></div>
+        <div class="rune r2"><span class="rune-icon">▤</span><span>数据</span></div>
+        <div class="rune r3"><span class="rune-icon">▥</span><span>商业</span></div>
+        <div class="rune r4"><span class="rune-icon">✦</span><span>Agent</span></div>
+        <div class="rune r5"><span class="rune-icon">◉</span><span>AI</span></div>
+        <div class="rune r6"><span class="rune-icon">⌘</span><span>流程</span></div>
+        <div class="rune r7"><span class="rune-icon">♙</span><span>组织</span></div>
+        <div class="rune r8"><span class="rune-icon">▱</span><span>平台</span></div>
+        <div class="rune r9"><span class="rune-icon">&lt;/&gt;</span><span>技术</span></div>
+        <div class="rune r10"><span class="rune-icon">◉</span><span>成本</span></div>
+      </div>
+      <button class="orb-core" id="orbCore"><span class="core-default">点一下</span><span class="core-collapsed">万物皆有魔法</span></button>
+    </div>
+  </div>
+</section>
+
+<div class="wrap questbar">
+  <div class="quest">
+    <div class="quest-icon">📜</div>
+    <div><h3>找到属于你的那一道魔法</h3><p>学习魔法 → 打开地图 → 挑战怪兽 → 收集材料 → 创造新魔法。</p></div>
+    <div class="reward">+100 Magic XP</div>
+  </div>
+</div>
+
+<section class="section" id="magic">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="chapter">CHAPTER 01 · 魔法图鉴</div><h2>产品能力亦是魔力</h2></div>
+      <p>冒险沉淀魔法，图鉴收藏每一段传奇。</p>
+    </div>
+    <div class="magic-grid">
+      <div class="card magic-card" data-magic="eye"><div class="ico">👁</div><small>MAGIC 001</small><h3>洞察之眼</h3><p>看见真正的问题。</p></div>
+      <div class="card magic-card" data-magic="mirror"><div class="ico">🔮</div><small>MAGIC 002</small><h3>本质之镜</h3><p>把需求照出真正的目标。</p></div>
+      <div class="card magic-card" data-magic="vanish"><div class="ico">✨</div><small>MAGIC 003</small><h3>消失咒</h3><p>让多余复杂度消失。</p></div>
+      <div class="card magic-card" data-magic="link"><div class="ico">∞</div><small>MAGIC 004</small><h3>连接术</h3><p>把散落能力连成一条路。</p></div>
+      <div class="card magic-card" data-magic="scale"><div class="ico">✦</div><small>MAGIC 005</small><h3>放大术</h3><p>把一次成功复制很多次。</p></div>
+      <div class="card magic-card" data-magic="route"><div class="ico">🧭</div><small>MAGIC 006</small><h3>路由术</h3><p>让问题自动找到能力。</p></div>
+      <div class="card magic-card" data-magic="summon"><div class="ico">🤖</div><small>MAGIC 007</small><h3>Agent召唤术</h3><p>让软件开始自己行动。</p></div>
+      <div class="card magic-card" data-magic="platform"><div class="ico">🏰</div><small>MAGIC 008</small><h3>平台封印术</h3><p>把定制怪兽封成可复用能力。</p></div>
+      <div class="card magic-card" data-magic="token"><div class="ico">🪙</div><small>MAGIC 009</small><h3>价值计量术</h3><p>让每次能力调用都能被计量。</p></div>
+      <div class="card magic-card" data-magic="trust"><div class="ico">🛡️</div><small>MAGIC 010</small><h3>可信护盾</h3><p>让结果可追溯、可验证。</p></div>
+      <div class="card magic-card" data-magic="workflow"><div class="ico">🧩</div><small>MAGIC 011</small><h3>流程编织术</h3><p>把专家经验织成Workflow。</p></div>
+      <div class="card magic-card" data-magic="world"><div class="ico">🌌</div><small>MAGIC 012</small><h3>世界生成术</h3><p>把产品能力扩成生态。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section soft" id="map">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="chapter">CHAPTER 02 · 冒险地图</div><h2>地图随冒险不断延展</h2></div>
+      <p>每一方天地，都藏着未知魔法、异兽与珍宝。点击世界，开启传送之门。</p>
+    </div>
+    <div class="map-shell">
+      <div class="map">
+        <div class="path"></div>
+        <div class="world w1" data-world="sea"><div class="orb">🌊</div><b>信息之海</b><small>用户与信息</small></div>
+        <div class="world w2" data-world="kingdom"><div class="orb">🏰</div><b>数字王国</b><small>组织与流程</small></div>
+        <div class="world w3" data-world="iot"><div class="orb">🌲</div><b>万物森林</b><small>设备与连接</small></div>
+        <div class="world w4" data-world="city"><div class="orb">🏙️</div><b>智慧之城</b><small>复杂系统</small></div>
+        <div class="world w5" data-world="industry"><div class="orb">⚙️</div><b>工业大陆</b><small>真实世界</small></div>
+        <div class="world w6" data-world="mind"><div class="orb">🧠</div><b>智能之境</b><small>AI能力</small></div>
+        <div class="world w7" data-world="agent"><div class="orb">🤖</div><b>Agent新世界</b><small>自主执行</small></div>
+        <div class="world w8" data-world="unknown"><div class="orb fog">?</div><b>未知领域</b><small>下一张地图</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="boss">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="chapter">CHAPTER 03 · 怪兽挑战</div><h2>前路遍布蛰伏怪兽</h2></div>
+      <p>点击挑战。释放魔法力量，迎战重重困境。</p>
+    </div>
+    <div class="boss-grid">
+      <div class="card boss" data-boss="system"><div class="monster">👾</div><h3>系统怪兽</h3><div class="hp"><span style="width:100%"></span></div><p>不停复制系统、入口与菜单。</p><div class="weak">弱点：能力抽象术</div></div>
+      <div class="card boss" data-boss="ai"><div class="monster">🤖</div><h3>AI幻影兽</h3><div class="hp"><span style="width:85%"></span></div><p>看起来像AI，却从不真正行动。</p><div class="weak">弱点：执行链召唤术</div></div>
+      <div class="card boss" data-boss="custom"><div class="monster">🐉</div><h3>定制巨龙</h3><div class="hp"><span style="width:100%"></span></div><p>每收到一个需求，就多长出一只头。</p><div class="weak">弱点：平台封印术</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section soft" id="create">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="chapter">CHAPTER 04 · 创造工坊</div><h2>收集魔法材料，创造崭新奇迹。</h2></div>
+      <p>选材料，放进熔炉。不同组合会生成不同产品魔法。</p>
+    </div>
+    <div class="create">
+      <div class="inventory">
+        <h3>🎒 魔法背包</h3>
+        <div class="items">
+          <div class="item" data-item="AI Agent"><div class="ico">🤖</div><b>AI Agent</b></div>
+          <div class="item" data-item="Knowledge"><div class="ico">📚</div><b>Knowledge</b></div>
+          <div class="item" data-item="Workflow"><div class="ico">🧩</div><b>Workflow</b></div>
+          <div class="item" data-item="IoT"><div class="ico">📡</div><b>IoT</b></div>
+          <div class="item" data-item="Data"><div class="ico">💧</div><b>Data</b></div>
+          <div class="item" data-item="GPU"><div class="ico">⚡</div><b>GPU</b></div>
+          <div class="item" data-item="API"><div class="ico">🔗</div><b>API</b></div>
+          <div class="item" data-item="Digital Twin"><div class="ico">🪞</div><b>Digital Twin</b></div>
+        </div>
+      </div>
+      <div class="forge">
+        <h3>🫧 魔法熔炉</h3>
+        <div class="cauldron">
+          <span class="bubble" style="left:15%;animation-delay:.2s"></span><span class="bubble" style="left:38%;animation-delay:1.1s"></span><span class="bubble" style="left:68%;animation-delay:.7s"></span>
+          <div><div style="font-size:58px">🧪</div><b>把材料丢进这里</b><div style="font-size:12px;color:#F1D6E2;margin-top:8px">至少选择两种材料</div></div>
+        </div>
+        <button class="make" id="make">✨ 开始炼制</button>
+        <div class="forge-result" id="forgeResult"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="book">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="chapter">CHAPTER 05 · 冒险魔法书</div><h2>每次冒险，都会收获新的咒语。</h2></div>
+      <p>冒险在继续，书卷亦在继续。</p>
+    </div>
+    <div class="story-book">
+      <div class="cover" id="cover">
+        <div><div style="font-size:66px">📖</div><div class="kicker">THE PRODUCT SPELLBOOK</div><h3>产品魔法冒险录</h3><p>翻开第一页。</p><button class="btn ghost" id="openBook">翻开魔法书</button></div>
+      </div>
+      <div class="page" id="page">
+        <div class="art" id="art">🔮</div>
+        <div><small id="spellNo">PRODUCT MAGIC · 001</small><h3 id="spellTitle">需求不是答案。</h3><p id="spellText">需求只是门上的字。真正的答案，藏在门后。</p>
+        <div class="controls"><button id="prev">← 上一页</button><button id="next">下一页 →</button></div></div>
+      </div>
+    </div>
+
+    <div class="agent" id="agent">
+      <div class="agenttop"><div class="ai">AI</div><div><b>Product Magic Agent</b><div style="font-size:12px;color:var(--muted)">把你遇到的问题写下来。</div></div></div>
+      <div class="agentbox"><textarea id="question" placeholder="例如：我们的平台很多，但用户还是不知道怎么开始……"></textarea><button class="make" id="ask">施法 ✨</button></div>
+      <div class="answer" id="answer"></div>
+    </div>
+  </div>
+</section>
+
+<section class="end">
+  <div class="wrap"><div class="kicker">EPILOGUE · 下一张地图</div><h2>冒险没有终点。</h2><p>新的世界、新的怪兽、新的魔法，还在前面。<br>每一个还没有答案的问题，都是下一段故事的入口。</p>
+  <div class="end-actions"><a href="#home">✨ 回到魔法之门</a><button id="newQuest">📜 开启新任务</button></div></div>
+</section>
+
+<footer><div class="wrap footerin"><div><b>万物皆有魔法。</b><br><small>Product Magic Adventure</small></div><div><small>See · Discover · Connect · Create · Evolve</small></div></div></footer>
+
+<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><div><div class="chapter" id="mk">MAGIC</div><h2 id="mt"></h2></div><button class="close" id="mx">×</button></div><div class="modalbody" id="mb"></div></div></div>
+
+<script>
+/* cursor magic */
+const cur=document.getElementById('cursorSpell');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  if(Math.random()>.55){const t=document.createElement('i');t.className='trail';t.style.left=e.clientX+'px';t.style.top=e.clientY+'px';document.body.appendChild(t);setTimeout(()=>t.remove(),700)}
+});
+
+/* particles */
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let pts=[];
+function resize(){canvas.width=innerWidth;canvas.height=document.querySelector('.hero').offsetHeight;pts=Array.from({length:90},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.8+.4,v:Math.random()*.25+.08}))}
+resize();addEventListener('resize',resize);
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='rgba(255,64,145,.42)';pts.forEach(p=>{p.y-=p.v;if(p.y<0)p.y=canvas.height;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()});requestAnimationFrame(draw)}draw();
+
+/* modal */
+const modal=document.getElementById('modal');function pop(k,t,b){mk.textContent=k;mt.textContent=t;mb.innerHTML=b;modal.classList.add('show')}mx.onclick=()=>modal.classList.remove('show');modal.onclick=e=>{if(e.target===modal)modal.classList.remove('show')};
+
+/* hero interaction */
+function burst(x,y){for(let i=0;i<24;i++){let s=document.createElement('i');s.className='trail';s.style.width='10px';s.style.height='10px';s.style.left=x+'px';s.style.top=y+'px';s.style.background=i%2?'#FF4091':'#8F235C';document.body.appendChild(s);let a=Math.random()*Math.PI*2,d=50+Math.random()*120;s.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px) scale(.1)`,opacity:0}],{duration:700+Math.random()*400});setTimeout(()=>s.remove(),1200)}}
+const magicOrb=document.querySelector('.magic-orb');
+const complexityRunes=[...document.querySelectorAll('#complexityOrbit .rune')];
+let orbCollapsed=false;
+
+function prepareCollapseVectors(){
+  const orbRect=magicOrb.getBoundingClientRect();
+  const cx=orbRect.left+orbRect.width/2;
+  const cy=orbRect.top+orbRect.height/2;
+  complexityRunes.forEach(r=>{
+    const rr=r.getBoundingClientRect();
+    const rx=rr.left+rr.width/2;
+    const ry=rr.top+rr.height/2;
+    r.style.setProperty('--collapse-x',(cx-rx)+'px');
+    r.style.setProperty('--collapse-y',(cy-ry)+'px');
+  });
+}
+function toggleProductMagic(e){
+  burst(e.clientX,e.clientY);
+  prepareCollapseVectors();
+  orbCollapsed=!orbCollapsed;
+  magicOrb.classList.toggle('collapsed',orbCollapsed);
+
+}
+orbCore.onclick=toggleProductMagic;
+castAnywhere.onclick=e=>burst(e.clientX,e.clientY);startAdventure.onclick=()=>magic.scrollIntoView({behavior:'smooth'});
+
+/* magic cards */
+const md={
+eye:['洞察之眼','👁','看见真正的问题。','它能穿过功能、术语和表象，直接看见真正值得解决的那件事。'],
+mirror:['本质之镜','🔮','让需求照出真身。','镜子会暂时拿掉“怎么做”，只留下“为什么”和“要改变什么”。'],
+vanish:['消失咒','✨','把复杂留在幕后。','让重复步骤、多余入口和无效功能从用户眼前消失。'],
+link:['连接术','∞','让孤岛重新连起来。','用户、业务、AI、数据、设备、软件会被重新排成一条能真正跑通的路。'],
+scale:['放大术','✦','让一次成功不断复制。','项目变产品，产品变平台，平台变生态。'],
+route:['路由术','🧭','让问题自动找到能力。','用户不再寻找软件，问题会自动寻找模型、Workflow、算力与工具。'],
+summon:['Agent召唤术','🤖','召唤会行动的软件。','它拥有目标、工具、记忆与Workflow，不只回答，还会完成任务。'],
+platform:['平台封印术','🏰','把定制怪兽封进能力宝库。','每一次定制都会沉淀成可复用能力，不让复杂度无限生长。'],
+token:['价值计量术','🪙','让魔法可以被交易。','每一次模型、算力、Workflow与服务调用，都能被计量、计费和结算。'],
+trust:['可信护盾','🛡️','让每个结果都有来路。','数据、模型、参数、执行过程与验证结果都可以追溯。'],
+workflow:['流程编织术','🧩','把专家经验织成可复用咒语。','复杂专业流程被编织成Workflow，任何人都可以重复调用。'],
+world:['世界生成术','🌌','让产品长成生态。','当能力可以被第三方提供、组合和交易，一个新的世界就出现了。']
+};
+document.querySelectorAll('.magic-card').forEach(x=>x.onclick=()=>{const d=md[x.dataset.magic];pop('MAGIC ENCYCLOPEDIA',d[0],'<div style="font-size:52px">'+d[1]+'</div><h3>'+d[2]+'</h3><p>'+d[3]+'</p>')});
+
+/* map */
+const wd={sea:['信息之海','🌊','潮水一样的信息中，真正的魔法是让人找到自己需要的那一滴。'],kingdom:['数字王国','🏰','这里所有人都有流程和规则。魔法是让复杂组织也能沿着一条清楚的路前进。'],iot:['万物森林','🌲','机器、设备、传感器都会说话。魔法是让现实世界进入产品。'],city:['智慧之城','🏙️','系统像街道一样交错。魔法是让城市中的能力协同起来。'],industry:['工业大陆','⚙️','这里的魔法会影响真实机器，所以安全、可靠与物理规律也是魔法的一部分。'],mind:['智能之境','🧠','数据开始预测、判断和生成。魔法是让AI成为新的能力层。'],agent:['Agent新世界','🤖','软件获得任务、工具和行动。魔法开始从回答走向执行。'],unknown:['未知领域','?','地图在这里变成了雾。新的问题，会决定下一个世界的名字。']};
+document.querySelectorAll('.world').forEach(x=>x.onclick=()=>{const d=wd[x.dataset.world];pop('WORLD PORTAL',d[0],'<div style="font-size:52px">'+d[1]+'</div><p>'+d[2]+'</p>')});
+
+/* bosses */
+const bd={system:['系统怪兽','👾','能力抽象术发动！','系统、菜单、入口开始聚合，最后只剩：<b>任务 → 能力 → 结果</b>。怪兽缩成了一只会自动调用能力的小精灵。'],ai:['AI幻影兽','🤖','执行链召唤术发动！','Planning、Tools、Workflow、Action依次出现。<br><br><b>Answer → Plan → Action → Outcome</b>'],custom:['定制巨龙','🐉','平台封印术发动！','每一只龙头都被重新命名为可复用能力。<br><br><b>Project → Product → Platform → Scale</b>']};
+document.querySelectorAll('.boss').forEach(x=>x.onclick=()=>{const d=bd[x.dataset.boss];pop('BOSS BATTLE',d[0],'<div style="font-size:54px">'+d[1]+'</div><h3>'+d[2]+'</h3><p>'+d[3]+'</p>')});
+
+/* forge */
+const items=[...document.querySelectorAll('.item')];items.forEach(x=>x.onclick=()=>x.classList.toggle('active'));
+make.onclick=()=>{const a=items.filter(x=>x.classList.contains('active')).map(x=>x.dataset.item);if(a.length<2){forgeResult.textContent='魔力不足：至少选择两种材料。';return}let n='Unknown Product Spell';if(a.includes('AI Agent')&&a.includes('Knowledge')&&a.includes('Workflow'))n='Knowledge Copilot';else if(a.includes('IoT')&&a.includes('Data')&&a.includes('AI Agent'))n='Autonomous Operations Agent';else if(a.includes('Digital Twin')&&a.includes('IoT'))n='Living Digital Twin';else if(a.includes('GPU')&&a.includes('Workflow'))n='Compute Workflow Cloud';else if(a.includes('API')&&a.includes('AI Agent'))n='Capability Router Agent';forgeResult.textContent='✨ 新魔法诞生：'+n+' ｜ '+a.join(' + ')};
+
+/* book */
+const pages=[['PRODUCT MAGIC · 001','🔮','需求不是答案。','需求只是门上的字。真正的答案，藏在门后。'],['PRODUCT MAGIC · 002','✨','先减，再加。','复杂会自己长大，简单需要被施法。'],['PRODUCT MAGIC · 003','🏰','项目会结束，能力应该留下。','每一次冒险，都应该留下下一次可以使用的魔法。'],['PRODUCT MAGIC · 004','🧩','平台不是系统的集合。','平台，是能被重复召唤、组合和放大的能力。'],['PRODUCT MAGIC · 005','🤖','AI不是聊天框。','真正的AI，会理解、规划、调用、行动，并带回结果。'],['PRODUCT MAGIC · 006','🪄','好的产品，会让复杂消失。','用户得到的是简单，魔法师承担的是复杂。']];let pi=0;
+openBook.onclick=()=>{cover.style.display='none';page.classList.add('active')};function rp(){spellNo.textContent=pages[pi][0];art.textContent=pages[pi][1];spellTitle.textContent=pages[pi][2];spellText.textContent=pages[pi][3]}prev.onclick=()=>{pi=(pi-1+pages.length)%pages.length;rp()};next.onclick=()=>{pi=(pi+1)%pages.length;rp()};
+
+/* agent */
+function aq(){if(!question.value.trim())return;answer.innerHTML='<b>✨ 魔法阵已经亮起。</b><br><br>① 给怪兽起真正的名字；<br>② 让不重要的复杂度消失；<br>③ 重新连接需要的能力；<br>④ 只保留能改变结果的路径。<br><br><b>召唤公式：</b> Problem → Capability → Outcome';answer.classList.add('show')}
+ask.onclick=aq;question.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();aq()}});askTop.onclick=()=>agent.scrollIntoView({behavior:'smooth'});newQuest.onclick=()=>{agent.scrollIntoView({behavior:'smooth'});setTimeout(()=>question.focus(),500)};
+</script>
+</body>
 </html>
