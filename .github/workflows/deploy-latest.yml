@@ -22,6 +22,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
           if ! git diff --cached --quiet; then
-            git commit -m "Deploy latest Product Magic site"
+            git commit -m "Deploy exact Product Magic 06 site"
             git push
           fi
+# trigger: 2026-08-20T17:24+08:00
