@@ -170,11 +170,4 @@ align-items:center;box-shadow:var(--shadow)}
 .map-shell{border-radius:28px;padding:30px;background:linear-gradient(#fff,#FAFAFC);border:1px solid var(--line);box-shadow:var(--shadow)}
 .map{min-height:500px;position:relative;border-radius:22px;overflow:hidden;
 background:
-linear-gradient(rgba(72,145,221,.07) 1px,transparent 1px),
-linear-gradient(90deg,rgba(72,145,221,.07) 1px,transparent 1px),
-radial-gradient(circle at 50% 50%,#fbfdff,#eaf4ff);
-background-size:32px 32px,32px 32px,auto}
-.path{position:absolute;left:7%;right:7%;top:52%;height:7px;border-radius:999px;
-background:linear-gradient(90deg,#F3CFDF,var(--pink),var(--berry),#FF8DBD);box-shadow:0 0 20px rgba(255,64,145,.18)}
-.world{position:absolute;width:112px;text-align:center;cursor:pointer}
-.world .orb{width:72px;height:72px;border-radius:50%;margin:auto;display:grid;place-items:center;font-size:30px;background:#fff;border:3px solid #F0D5E1;
+linear-gradient(rgba(
