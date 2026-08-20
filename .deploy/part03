@@ -1,3 +1,50 @@
+und:#FFFFFF !important;
+  color:#0D1B34 !important;
+  border:1px solid rgba(255,255,255,.9) !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+.end-actions a:hover,.end-actions button:hover{transform:translateY(-2px)}
+
+/* Footer remains clearly separated from the epilogue */
+footer{
+  background:#09162C !important;
+  color:#FFFFFF !important;
+  border-top:1px solid rgba(255,255,255,.10);
+}
+footer b{color:#FFFFFF !important}
+footer small{color:#BFC9D8 !important}
+
+
+/* ===== Spellbook contrast fix ===== */
+.story-book .cover{
+  background:
+    radial-gradient(circle at 50% 28%,rgba(255,64,145,.13),transparent 32%),
+    linear-gradient(180deg,#FFF8FB 0%,#FFFFFF 100%) !important;
+  color:#0D1B34 !important;
+}
+.story-book .cover .kicker{
+  color:#C72E72 !important;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.story-book .cover h2{
+  color:#0D1B34 !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+}
+.story-book .cover p{
+  color:#8F235C !important;
+  opacity:1 !important;
+  font-weight:700;
+}
+.story-book .cover .btn,
+.story-book #openBook{
+  background:linear-gradient(135deg,#FF4091,#8F235C) !important;
+  color:#FFFFFF !important;
+  border-color:transparent !important;
+  box-shadow:0 12px 30px rgba(255,64,145,.24);
+}
+.story-book .page,
 .story-book .book-page{
   color:#0D1B34 !important;
 }
@@ -239,69 +286,4 @@
 #complexityOrbit .r6 {right:-5%; top:58%;  transform:rotate(-3deg); animation-delay:1.8s !important}
 #complexityOrbit .r7 {left:1%;   bottom:9%;transform:rotate(-5deg); animation-delay:1.2s !important}
 #complexityOrbit .r8 {right:9%;  bottom:5%;transform:rotate(4deg);  animation-delay:2.1s !important}
-#complexityOrbit .r9 {left:22%;  bottom:0%;transform:rotate(2deg);  animation-delay:.4s !important}
-#complexityOrbit .r10{left:9%;   top:61%; transform:rotate(5deg);  animation-delay:1.6s !important}
-#complexityOrbit .r11{right:18%; top:19%; transform:rotate(-5deg); animation-delay:.7s !important}
-#complexityOrbit .r12{left:47%;  bottom:3%;transform:rotate(-2deg); animation-delay:2.4s !important}
-
-/* 小范围轻漂浮，只动 Y，不改变元素宽高 */
-@keyframes labelFloat{
-  0%,100%{ translate:0 0; }
-  50%{ translate:0 -7px; }
-}
-
-/* 点击后全部吸入中心 */
-.magic-orb.collapsed #complexityOrbit .rune{
-  animation:none !important;
-  translate:0 0 !important;
-  transform:
-    translate(var(--collapse-x,0px),var(--collapse-y,0px))
-    scale(.14)
-    rotate(0deg) !important;
-  opacity:0 !important;
-  filter:blur(3px) !important;
-}
-
-/* 清理光环：只保留纯圆形边界，不产生任何白色填充 */
-.magic-orb::before,
-.magic-orb::after{
-  content:"" !important;
-  position:absolute !important;
-  border-radius:50% !important;
-  background:transparent !important;
-  pointer-events:none !important;
-  box-sizing:border-box !important;
-}
-.magic-orb::before{
-  inset:-40px !important;
-  border:1px solid rgba(255,64,145,.18) !important;
-}
-.magic-orb::after{
-  inset:-82px !important;
-  border:1px solid rgba(255,64,145,.10) !important;
-}
-
-.magic-orb.collapsed::before{inset:72px !important}
-.magic-orb.collapsed::after{inset:102px !important}
-
-@media(max-width:980px){
-  .magic-orb{
-    width:360px !important;height:360px !important;
-    min-width:360px !important;min-height:360px !important;
-  }
-  #complexityOrbit{
-    width:540px !important;height:540px !important;
-  }
-  #complexityOrbit .rune{
-    height:38px !important;
-    min-height:38px !important;
-    padding:0 13px !important;
-    font-size:11px !important;
-  }
-}
-@media(max-width:680px){
-  .magic-orb{
-    width:300px !important;height:300px !important;
-    min-width:300px !important;min-height:300px !important;
-  }
-  #complexityOrbit{
+#complexityOrbit .
