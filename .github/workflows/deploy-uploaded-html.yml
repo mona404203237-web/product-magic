@@ -1,0 +1,32 @@
+name: Deploy uploaded HTML
+
+on:
+  push:
+    paths:
+      - '.deploy_upload/manifest.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild index.html from uploaded file chunks
+        shell: bash
+        run: |
+          cat .deploy_upload/part-*.b64 | tr -d '\n\r' | base64 -d > index.html
+          test -s index.html
+      - name: Commit exact uploaded version
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "index.html already matches uploaded version"
+          else
+            git commit -m "Deploy exact uploaded product magic HTML"
+            git push
+          fi
