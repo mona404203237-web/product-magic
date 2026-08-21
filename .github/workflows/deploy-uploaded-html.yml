@@ -1,9 +1,9 @@
-name: Deploy uploaded HTML
+name: Deploy exact Product Magic avatar version
 
 on:
   push:
     paths:
-      - '.deploy_upload/manifest.txt'
+      - '.deploy_patch/manifest.txt'
 
 permissions:
   contents: write
@@ -13,20 +13,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Rebuild index.html from uploaded file chunks
+
+      - name: Apply latest site patch
         shell: bash
         run: |
-          cat .deploy_upload/part-*.b64 | tr -d '\n\r' | base64 -d > index.html
-          test -s index.html
-      - name: Commit exact uploaded version
+          base64 -d .deploy_patch/patch.gz.b64 | gzip -d > /tmp/site.patch
+          git apply /tmp/site.patch
+
+          python - <<'PY'
+          from pathlib import Path
+          f = Path('index.html')
+          s = f.read_text(encoding='utf-8')
+          marker = '__AVATAR_DATA__'
+          if s.count(marker) != 1:
+              raise SystemExit(f'avatar marker count = {s.count(marker)}')
+          avatar = Path('.deploy_patch/avatar.b64').read_text().strip()
+          s = s.replace(marker, 'data:image/jpeg;base64,' + avatar)
+          checks = ['熊霞', 'XIONGXIA', 'logo-feature-stars', '魔法行世间万千奇遇']
+          for c in checks:
+              if c not in s:
+                  raise SystemExit('missing expected content: ' + c)
+          f.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit full replacement
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
           if git diff --cached --quiet; then
-            echo "index.html already matches uploaded version"
+            echo "index.html already matches target"
           else
-            git commit -m "Deploy exact uploaded product magic HTML"
+            git commit -m "Replace site with latest avatar and three-star logo version"
             git push
           fi
