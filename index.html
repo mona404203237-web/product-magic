@@ -1141,6 +1141,62 @@ footer small{color:#BFC9D8 !important}
   }
 }
 
+
+/* ===== Logo 右下角三颗特色小星星：小巧版 ===== */
+.brandmark{overflow:visible !important;}
+.logo-feature-stars{
+  position:absolute;
+  right:-18px;
+  bottom:-9px;
+  width:35px;
+  height:31px;
+  z-index:8;
+  pointer-events:none;
+}
+.logo-feature-stars i{
+  position:absolute;
+  display:block;
+  font-style:normal;
+  line-height:1;
+  transform-origin:center;
+}
+/* 高壮星 */
+.logo-feature-stars .star-tall{
+  left:0;
+  top:-2px;
+  font-size:21px;
+  color:#FF4091;
+  transform:scaleX(.80) scaleY(1.30) rotate(-5deg);
+  filter:drop-shadow(0 3px 6px rgba(255,64,145,.20));
+}
+/* 最闪耀星 */
+.logo-feature-stars .star-bright{
+  right:0;
+  top:7px;
+  font-size:17px;
+  color:#8F235C;
+  transform:rotate(12deg);
+  text-shadow:0 0 3px #fff,0 0 7px rgba(255,64,145,.55);
+  filter:drop-shadow(0 0 4px rgba(255,64,145,.28));
+}
+/* 矮小胖星 */
+.logo-feature-stars .star-chubby{
+  left:12px;
+  bottom:0;
+  font-size:12px;
+  color:#FF8FC0;
+  transform:scaleX(1.42) scaleY(.74) rotate(7deg);
+  filter:drop-shadow(0 2px 5px rgba(255,64,145,.18));
+}
+@media(max-width:680px){
+  .logo-feature-stars{
+    right:-15px;
+    bottom:-7px;
+    transform:scale(.88);
+    transform-origin:center;
+  }
+}
+
 </style>
 
 <style>
@@ -1195,17 +1251,512 @@ footer small{color:#BFC9D8 !important}
 }
 </style>
 
+
+<style>
+/* ===== 个人品牌头像预览版：仅调整左上角品牌区域 ===== */
+.brand{
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+  font-weight:900 !important;
+}
+.brandmark{
+  width:52px !important;
+  height:52px !important;
+  min-width:52px !important;
+  flex:0 0 52px !important;
+  border-radius:50% !important;
+  overflow:visible !important;
+  position:relative !important;
+  background:#fff !important;
+  box-shadow:
+    0 0 0 2px rgba(255,105,180,.28),
+    0 8px 24px rgba(255,105,180,.18) !important;
+}
+.brandmark .brand-avatar{
+  width:52px !important;
+  height:52px !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center 30% !important;
+  border-radius:50% !important;
+}
+.brandmark .brand-spark{
+  position:absolute;
+  right:-10px;
+  bottom:-6px;
+  color:#FF69B4;
+  font-size:18px;
+  line-height:1;
+  text-shadow:0 4px 14px rgba(255,105,180,.28);
+}
+.brand-copy{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  line-height:1.05;
+}
+.brand-copy strong{
+  display:block;
+  font-size:20px;
+  color:#0D1B34;
+  letter-spacing:.01em;
+}
+.brand-copy small{
+  display:block;
+  margin-top:6px;
+  font-size:10px !important;
+  color:#68768B !important;
+  letter-spacing:.12em !important;
+  font-weight:800;
+}
+@media(max-width:680px){
+  .brandmark{
+    width:44px !important;height:44px !important;min-width:44px !important;flex-basis:44px !important;
+  }
+  .brandmark .brand-avatar{width:44px !important;height:44px !important;}
+  .brand-copy strong{font-size:17px;}
+  .brand-copy small{font-size:9px !important;}
+}
+</style>
+
+
+<style>
+/* ===== 07 个人品牌细节预览 ===== */
+
+/* 名字下方只保留 XIONGXIA */
+.brand-copy small{
+  letter-spacing:.18em !important;
+}
+
+/* 三颗魔法星：高壮 / 闪耀 / 小胖 */
+.brand-stars{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.brand-stars .star{
+  position:absolute;
+  display:block;
+  font-style:normal;
+  color:#FF69B4;
+  line-height:1;
+  filter:drop-shadow(0 4px 10px rgba(255,105,180,.24));
+}
+.brand-stars .star-tall{
+  right:-16px;
+  top:-7px;
+  font-size:27px;
+  transform:scaleX(.72) scaleY(1.35) rotate(-4deg);
+  color:#FF4091;
+}
+.brand-stars .star-bright{
+  right:-29px;
+  top:13px;
+  font-size:23px;
+  color:#8F245E;
+  transform:rotate(12deg);
+  filter:drop-shadow(0 0 7px rgba(255,64,145,.42));
+}
+.brand-stars .star-chubby{
+  right:-20px;
+  bottom:-10px;
+  font-size:17px;
+  transform:scaleX(1.28) scaleY(.88) rotate(7deg);
+  color:#FF8FC0;
+}
+
+/* 首屏左上角小型品牌署名 */
+.hero-signature{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:3px;
+  margin:0 0 18px 0;
+  padding:0;
+  line-height:1;
+}
+.hero-signature-cn{
+  color:#0D1B34;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.hero-signature-en{
+  color:#7A879B;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.17em;
+}
+
+@media(max-width:680px){
+  .brand-stars .star-tall{right:-14px;top:-7px;font-size:24px;}
+  .brand-stars .star-bright{right:-25px;top:11px;font-size:20px;}
+  .brand-stars .star-chubby{right:-18px;bottom:-9px;font-size:15px;}
+  .hero-signature{margin-bottom:14px;}
+}
+</style>
+
+
+<style>
+/* =========================================================
+   09 · 首屏布局上移版
+   目标：
+   1. 头像周围不再显示星星
+   2. 首屏核心内容整体上移
+   3. “找到属于你的那一道魔法”任务卡同步上移
+   4. 保持原有浅色、热粉、魔法粒子和交互不变
+   ========================================================= */
+
+/* 头像保持简洁的圆形个人品牌效果 */
+.brandmark{
+  overflow:hidden !important;
+  box-shadow:
+    0 0 0 2px rgba(255,105,180,.24),
+    0 8px 22px rgba(255,105,180,.15) !important;
+}
+
+/* 首屏整体收紧高度，不再让核心内容垂直居中得太靠下 */
+.hero{
+  min-height:720px !important;
+  padding-top:0 !important;
+  padding-bottom:62px !important;
+  overflow:visible !important;
+}
+
+.hero-inner{
+  min-height:700px !important;
+  padding-top:22px !important;
+  padding-bottom:0 !important;
+  align-items:center !important;
+  transform:translateY(-46px);
+}
+
+/* 左侧文字块略微上提，形成更紧凑的主视觉 */
+.hero-inner > div:first-child{
+  transform:translateY(-8px);
+}
+
+/* 右侧魔法球同步上提，保持左右视觉中心一致 */
+.hero-inner > .magic-orb{
+  transform:translateY(-8px);
+}
+
+/* 任务卡向上接近首屏，但与底部技术标签保留呼吸空间 */
+.questbar{
+  margin-top:0 !important;
+  transform:translateY(-88px) !important;
+  position:relative !important;
+  z-index:5 !important;
+}
+
+/* 避免任务卡上移后，后续内容出现过大空白 */
+#magic{
+  margin-top:-54px !important;
+}
+
+/* 平板 */
+@media(max-width:980px){
+  .hero{
+    min-height:820px !important;
+    padding-bottom:70px !important;
+  }
+  .hero-inner{
+    min-height:790px !important;
+    transform:translateY(-28px);
+  }
+  .hero-inner > div:first-child,
+  .hero-inner > .magic-orb{
+    transform:none;
+  }
+  .questbar{
+    transform:translateY(-58px) !important;
+  }
+  #magic{
+    margin-top:-30px !important;
+  }
+}
+
+/* 手机 */
+@media(max-width:680px){
+  .hero{
+    min-height:auto !important;
+    padding:34px 0 70px !important;
+  }
+  .hero-inner{
+    min-height:auto !important;
+    transform:none !important;
+    padding-top:0 !important;
+    gap:42px !important;
+  }
+  .questbar{
+    transform:translateY(-34px) !important;
+  }
+  #magic{
+    margin-top:-16px !important;
+  }
+}
+</style>
+
+
+<style>
+/* =========================================================
+   10 · 头像三星 Logo 版
+   右下角三颗星：高壮 / 闪耀 / 矮胖
+   同时把姓名整体右移，为星星腾出空间
+   ========================================================= */
+
+.brand{
+  gap:22px !important;
+  overflow:visible !important;
+}
+
+.brandmark{
+  overflow:visible !important;
+  position:relative !important;
+  z-index:2;
+}
+
+.brandmark .brand-avatar{
+  position:relative;
+  z-index:3;
+}
+
+/* 三颗星组合，放在头像右下角 */
+.logo-spark-cluster{
+  position:absolute;
+  right:-23px;
+  bottom:-13px;
+  width:44px;
+  height:42px;
+  z-index:6;
+  pointer-events:none;
+}
+
+.logo-spark-cluster .spark{
+  position:absolute;
+  display:block;
+  font-style:normal;
+  line-height:1;
+  transform-origin:center;
+  filter:drop-shadow(0 4px 10px rgba(255,64,145,.22));
+}
+
+/* 1. 最高最壮 */
+.logo-spark-cluster .spark-tall{
+  left:1px;
+  top:-5px;
+  font-size:30px;
+  color:#FF4091;
+  transform:scaleX(.76) scaleY(1.38) rotate(-5deg);
+}
+
+/* 2. 最闪耀 */
+.logo-spark-cluster .spark-bright{
+  right:0;
+  top:9px;
+  font-size:24px;
+  color:#8F235C;
+  transform:rotate(12deg);
+  text-shadow:
+    0 0 4px rgba(255,255,255,.95),
+    0 0 10px rgba(255,64,145,.45);
+}
+
+/* 3. 又矮又胖 */
+.logo-spark-cluster .spark-chubby{
+  left:15px;
+  bottom:0;
+  font-size:16px;
+  color:#FF8FC0;
+  transform:scaleX(1.38) scaleY(.78) rotate(7deg);
+}
+
+/* 姓名整体向右，让星星与文字不打架 */
+.brand-copy{
+  margin-left:8px !important;
+}
+
+.brand-copy strong{
+  letter-spacing:.01em;
+}
+
+.brand-copy small{
+  margin-top:6px !important;
+  letter-spacing:.18em !important;
+}
+
+/* 平板 */
+@media(max-width:980px){
+  .brand{gap:19px !important;}
+  .brand-copy{margin-left:6px !important;}
+  .logo-spark-cluster{
+    right:-20px;
+    bottom:-12px;
+    transform:scale(.92);
+  }
+}
+
+/* 手机 */
+@media(max-width:680px){
+  .brand{gap:17px !important;}
+  .brand-copy{margin-left:5px !important;}
+  .logo-spark-cluster{
+    right:-18px;
+    bottom:-10px;
+    transform:scale(.82);
+    transform-origin:center;
+  }
+}
+</style>
+
+
+<style>
+/* =========================================================
+   11 · 手机端两区域位置优化
+   仅调整：
+   ① 魔法圆环区域位置
+   ② “找到属于你的那一道魔法”任务卡位置
+   头像 / 姓名 / Logo 保持上一版完全不变
+   ========================================================= */
+
+@media(max-width:680px){
+
+  /* 首屏改为自然纵向流，避免按钮与魔法圆环互相遮挡 */
+  .hero{
+    padding-top:30px !important;
+    padding-bottom:72px !important;
+    min-height:auto !important;
+  }
+
+  .hero-inner{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    gap:0 !important;
+    min-height:auto !important;
+    padding-top:0 !important;
+    padding-bottom:0 !important;
+    transform:none !important;
+  }
+
+  /* 左侧文字与按钮保持在上方，先完整结束后再出现魔法圆环 */
+  .hero-inner > div:first-child{
+    width:100% !important;
+    transform:none !important;
+    position:relative !important;
+    z-index:3 !important;
+    margin-bottom:76px !important;
+  }
+
+  /* ① 魔法圆环整体独立成一块，往下放，不与 CTA 按钮重叠 */
+  .hero-inner > .magic-orb{
+    position:relative !important;
+    left:auto !important;
+    right:auto !important;
+    top:auto !important;
+    bottom:auto !important;
+
+    margin:0 auto !important;
+    transform:none !important;
+
+    width:250px !important;
+    height:250px !important;
+    min-width:250px !important;
+    min-height:250px !important;
+
+    z-index:2 !important;
+  }
+
+  /* 胶囊标签区域留足完整空间 */
+  #complexityOrbit{
+    width:400px !important;
+    height:390px !important;
+    left:50% !important;
+    top:50% !important;
+    transform:translate(-50%,-50%) !important;
+  }
+
+  /* 魔法球底部额外留白，避免最底部“技术”标签压到任务卡 */
+  .hero-inner > .magic-orb{
+    margin-bottom:76px !important;
+  }
+
+  /* ② 任务卡回归正常文档流，不再负位移向上压住圆环 */
+  .questbar{
+    margin-top:0 !important;
+    padding-top:0 !important;
+    transform:none !important;
+    position:relative !important;
+    z-index:4 !important;
+  }
+
+  .quest{
+    grid-template-columns:64px 1fr !important;
+    gap:14px !important;
+    padding:18px !important;
+    align-items:center !important;
+  }
+
+  .quest-icon{
+    width:56px !important;
+    height:56px !important;
+  }
+
+  .quest h3{
+    font-size:20px !important;
+    line-height:1.28 !important;
+    margin:0 0 8px !important;
+  }
+
+  .quest p{
+    font-size:12px !important;
+    line-height:1.7 !important;
+  }
+
+  /* XP 独立放到右下，不抢标题空间 */
+  .reward{
+    grid-column:2 !important;
+    justify-self:start !important;
+    margin-top:4px !important;
+    padding:8px 12px !important;
+  }
+
+  /* 后续章节保持自然衔接 */
+  #magic{
+    margin-top:34px !important;
+  }
+}
+</style>
+
+
+<style>
+/* 12 · 仅微调中文姓名：熊霞放大约 7%，其他保持不变 */
+.brand-copy strong{
+  font-size:1.07em !important;
+}
+</style>
+
 </head>
 <body>
 <div class="cursor-spell" id="cursorSpell"></div>
 
 <header class="nav">
   <div class="wrap navin">
-    <a class="brand" href="#home"><div class="brandmark" aria-label="产品魔法冒险">
-      <span class="logo-star logo-star-tall">✦</span>
-      <span class="logo-star logo-star-elegant">✧</span>
-      <span class="logo-star logo-star-fat">✦</span>
-    </div><div>产品魔法冒险<small>PRODUCT MAGIC ADVENTURE</small></div></a>
+    <a class="brand" href="#home">
+      <div class="brandmark" aria-label="熊霞">
+        <img class="brand-avatar" src="data:image/jpeg;base64,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" alt="熊霞">
+        <span class="logo-feature-stars" aria-hidden="true">
+          <i class="star-tall">✦</i>
+          <i class="star-bright">✧</i>
+          <i class="star-chubby">✦</i>
+        </span>
+      </div>
+      <div class="brand-copy">
+        <strong>熊霞</strong>
+        <small>XIONGXIA</small>
+      </div>
+    </a>
     <nav class="links">
       <a href="#home">魔法之门</a><a href="#magic">魔法图鉴</a><a href="#map">冒险地图</a><a href="#boss">怪兽挑战</a><a href="#create">创造</a><a href="#book">魔法书</a>
       <button id="askTop">🪄 召唤魔法师</button>
@@ -1217,6 +1768,10 @@ footer small{color:#BFC9D8 !important}
   <canvas id="particles"></canvas>
   <div class="wrap hero-inner">
     <div>
+      <div class="hero-signature" aria-label="产品魔法冒险 Product Magic Adventure">
+        <span class="hero-signature-cn">产品魔法冒险</span>
+        <span class="hero-signature-en">PRODUCT MAGIC ADVENTURE</span>
+      </div>
       <div class="kicker">PROLOGUE · 魔法之门</div>
       <h1>魔法行世间万千奇遇</h1>
       <p>凡有心之所向皆有魔法回响</p>
